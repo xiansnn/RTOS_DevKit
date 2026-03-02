@@ -1,0 +1,21 @@
+#include "device/HC_SR04/hc_sr04.h"
+#include <stdio.h>
+
+#define TRIG_PIN 21
+#define ECHO_PIN 26
+
+int main()
+{
+    stdio_init_all();
+    HCSR04 ranging_device = HCSR04(TRIG_PIN, ECHO_PIN);
+    float range{};
+
+    while (true)
+    {
+        range = ranging_device.get_distance();
+        sleep_ms(500);
+        printf("range: %.2f cm\n", range);
+    }
+
+    return 0;
+}
