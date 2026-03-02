@@ -1,14 +1,3 @@
-/**
- * @file widget_bargraph.h
- * @author xiansnn (xiansnn@hotmail.com)
- * @brief
- * @version 0.1
- * @date 2025-01-18
- *
- * @copyright Copyright (c) 2025
- *
- */
-
 #pragma once
 
 #include "sw/display_device/display_device.h"

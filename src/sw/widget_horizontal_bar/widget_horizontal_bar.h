@@ -1,13 +1,3 @@
-/**
- * @file widget_horizontal_bar.h
- * @author xiansnn (xiansnn@hotmail.com)
- * @brief
- * @version 0.1
- * @date 2025-01-13
- *
- * @copyright Copyright (c) 2025
- *
- */
 #pragma once
 
 #include "sw/ui_core/ui_core.h"

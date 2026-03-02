@@ -10,9 +10,9 @@
 <area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="411,44,412,79,408,76,408,48"/>
 <area shape="rect" id="Node000008" href="$widget_8h.html" title=" " alt="" coords="485,151,548,175"/>
 <area shape="poly" id="edge17_Node000001_Node000008" title=" " alt="" coords="429,40,457,76,511,151,506,150,453,80,427,45"/>
-<area shape="rect" id="Node000009" href="$widget__bargraph_8h.html" title=" " alt="" coords="460,223,573,248"/>
+<area shape="rect" id="Node000009" href="$widget__bargraph_8h_source.html" title=" " alt="" coords="460,223,573,248"/>
 <area shape="poly" id="edge18_Node000001_Node000009" title=" " alt="" coords="446,35,477,55,510,81,539,113,562,150,564,171,557,192,531,225,528,221,552,190,559,171,557,152,535,116,506,85,474,60,445,41"/>
-<area shape="rect" id="Node000011" href="$widget__square__led_8h.html" title=" " alt="" coords="597,223,718,248"/>
+<area shape="rect" id="Node000011" href="$widget__square__led_8h_source.html" title=" " alt="" coords="597,223,718,248"/>
 <area shape="poly" id="edge19_Node000001_Node000011" title=" " alt="" coords="458,34,497,52,534,76,574,114,609,155,654,224,649,222,604,158,570,117,531,80,495,57,458,39"/>
 <area shape="rect" id="Node000003" href="$rtos__ui__core_8h.html" title=" " alt="" coords="187,151,278,175"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="231,116,234,151,229,149,228,121"/>
@@ -23,7 +23,7 @@
 <area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="388,112,345,153,343,148,383,114"/>
 <area shape="poly" id="edge10_Node000006_Node000008" title=" " alt="" coords="433,109,495,150,489,150,432,115"/>
 <area shape="poly" id="edge15_Node000006_Node000009" title=" " alt="" coords="429,113,511,223,505,222,426,117"/>
-<area shape="rect" id="Node000010" href="$widget__horizontal__bar_8h.html" title=" " alt="" coords="300,223,437,248"/>
+<area shape="rect" id="Node000010" href="$widget__horizontal__bar_8h_source.html" title=" " alt="" coords="300,223,437,248"/>
 <area shape="poly" id="edge16_Node000006_Node000010" title=" " alt="" coords="405,116,374,224,370,221,400,119"/>
 <area shape="poly" id="edge11_Node000008_Node000006" title=" " alt="" coords="491,141,434,106,435,101,497,142"/>
 <area shape="poly" id="edge12_Node000008_Node000009" title=" " alt="" coords="518,189,519,225,514,221,515,193"/>
