@@ -1,4 +1,7 @@
-# C++ DevKit Motivation
+# C++ FreeRTOS DevKit Motivation
+This is the FreeRTOS version of the previous CPP_DevKit library. 
+*It is still in development and the docs is not up to date.*
+
 This repository proposes an abstraction layer above the Raspberry-pico SDK. This why its name is inspired from Pico-SDK : CPP_DevKit.
 
 It is built with an Object Oriented Programming (OOP) approach. the proposed classes are those that I've needed with the displays and sensor modules I have.
