@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$class_widget.html" title="A widget is a displayed object on a device screen. This is the base widget, it is derived as GraphicW..." alt="" coords="5,31,61,55"/>
+<area shape="rect" id="Node000001" href="$class_graphic_widget.html" title="The graphical version of a Widget." alt="" coords="109,5,200,30"/>
+<area shape="poly" id="edge30_Node000000_Node000001" title=" " alt="" coords="75,32,110,26,106,29,77,37"/>
+<area shape="rect" id="Node000003" href="$class_print_widget.html" title="A widget used when we need to simply print but still want to take advantage of the status change mana..." alt="" coords="116,55,193,79"/>
+<area shape="poly" id="edge32_Node000000_Node000003" title=" " alt="" coords="76,49,118,59,113,60,76,54"/>
+<area shape="rect" id="Node000002" href="$class_text_widget.html" title="a dedicated class for text frame only" alt="" coords="248,5,323,30"/>
+<area shape="poly" id="edge31_Node000001_Node000002" title=" " alt="" coords="215,15,250,17,245,18,216,20"/>
+</map>

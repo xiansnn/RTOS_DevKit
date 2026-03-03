@@ -1,10 +1,6 @@
 var hierarchy =
 [
-    [ "Blinker", "class_blinker.html", [
-      [ "WidgetBlinkingSquareLed", "class_widget_blinking_square_led.html", [
-        [ "WidgetFocusIndicator", "class_widget_focus_indicator.html", null ]
-      ] ]
-    ] ],
+    [ "Blinker", "class_blinker.html", null ],
     [ "Canvas", "class_canvas.html", [
       [ "CanvasHMSB", "class_canvas_h_m_s_b.html", null ],
       [ "CanvasRGB", "class_canvas_r_g_b.html", null ],
@@ -39,7 +35,6 @@ var hierarchy =
       [ "rtos_HW_SPI_Master", "classrtos___h_w___s_p_i___master.html", null ]
     ] ],
     [ "Model", "class_model.html", [
-      [ "ModelBargraph", "class_model_bargraph.html", null ],
       [ "UIControlledModel", "class_u_i_controlled_model.html", [
         [ "UIControlledIncrementalValue", "class_u_i_controlled_incremental_value.html", [
           [ "UIModelManager", "class_u_i_model_manager.html", null ]
@@ -106,18 +101,10 @@ var hierarchy =
         [ "RotaryEncoder", "class_rotary_encoder.html", null ]
       ] ]
     ] ],
-    [ "UIController", "class_u_i_controller.html", [
-      [ "KY040", "class_k_y040.html", null ]
-    ] ],
+    [ "UIController", "class_u_i_controller.html", null ],
     [ "Widget", "class_widget.html", [
       [ "GraphicWidget", "class_graphic_widget.html", [
-        [ "TextWidget", "class_text_widget.html", null ],
-        [ "WidgetHorizontalBar", "class_widget_horizontal_bar.html", null ],
-        [ "WidgetHorizontalBargraph", "class_widget_horizontal_bargraph.html", null ],
-        [ "WidgetSquareLed", "class_widget_square_led.html", [
-          [ "WidgetBlinkingSquareLed", "class_widget_blinking_square_led.html", null ]
-        ] ],
-        [ "WidgetVerticalBargraph", "class_widget_vertical_bargraph.html", null ]
+        [ "TextWidget", "class_text_widget.html", null ]
       ] ],
       [ "PrintWidget", "class_print_widget.html", null ]
     ] ]

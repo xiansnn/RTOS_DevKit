@@ -18,9 +18,7 @@ var annotated_dup =
     [ "HW_I2C_Master", "class_h_w___i2_c___master.html", "class_h_w___i2_c___master" ],
     [ "HW_I2C_Slave", "class_h_w___i2_c___slave.html", "class_h_w___i2_c___slave" ],
     [ "HW_SPI_Master", "class_h_w___s_p_i___master.html", "class_h_w___s_p_i___master" ],
-    [ "KY040", "class_k_y040.html", "class_k_y040" ],
     [ "Model", "class_model.html", "class_model" ],
-    [ "ModelBargraph", "class_model_bargraph.html", "class_model_bargraph" ],
     [ "MPU6050", "class_m_p_u6050.html", "class_m_p_u6050" ],
     [ "MSGEQ7", "class_m_s_g_e_q7.html", "class_m_s_g_e_q7" ],
     [ "PrintWidget", "class_print_widget.html", "class_print_widget" ],
@@ -85,11 +83,5 @@ var annotated_dup =
     [ "UIControlledModel", "class_u_i_controlled_model.html", "class_u_i_controlled_model" ],
     [ "UIController", "class_u_i_controller.html", "class_u_i_controller" ],
     [ "UIModelManager", "class_u_i_model_manager.html", "class_u_i_model_manager" ],
-    [ "Widget", "class_widget.html", "class_widget" ],
-    [ "WidgetBlinkingSquareLed", "class_widget_blinking_square_led.html", "class_widget_blinking_square_led" ],
-    [ "WidgetFocusIndicator", "class_widget_focus_indicator.html", "class_widget_focus_indicator" ],
-    [ "WidgetHorizontalBar", "class_widget_horizontal_bar.html", "class_widget_horizontal_bar" ],
-    [ "WidgetHorizontalBargraph", "class_widget_horizontal_bargraph.html", "class_widget_horizontal_bargraph" ],
-    [ "WidgetSquareLed", "class_widget_square_led.html", "class_widget_square_led" ],
-    [ "WidgetVerticalBargraph", "class_widget_vertical_bargraph.html", "class_widget_vertical_bargraph" ]
+    [ "Widget", "class_widget.html", "class_widget" ]
 ];
