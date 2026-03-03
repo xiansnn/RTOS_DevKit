@@ -40,6 +40,6 @@ target_link_libraries(test_rtos_ssd1306_text_primitives
             )
 
 add_subdirectory(test_rtos_ctrl_focus)
-add_subdirectory(test_rtos_blinker)
+add_subdirectory(test_rtos_clock)
 
            
