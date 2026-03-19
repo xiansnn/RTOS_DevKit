@@ -12,9 +12,9 @@ Probe pr_D1 = Probe(1);
 #define MPU_INT 21 // gpio connnected to MPU INT pin
 
 struct_ConfigMasterI2C cfg_i2c{
-    .i2c = i2c0,
-    .sda_pin = 8,
-    .scl_pin = 9,
+    .i2c = i2c1,
+    .sda_pin = 2,
+    .scl_pin = 3,
     .baud_rate = I2C_STANDARD_MODE};
 
 struct_ConfigMPU6050 mpu_cfg{
