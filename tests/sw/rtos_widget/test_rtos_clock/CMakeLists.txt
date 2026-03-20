@@ -1,7 +1,3 @@
-
-#-------------------------------------------------------------------------------------
-include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
-
 add_executable(test_rtos_clock 
                 test_rtos_clock.cpp
                 t_rtos_clock_display_setup.cpp
@@ -15,6 +11,7 @@ add_executable(test_rtos_clock
                 t_rtos_digital_clock_widgets.cpp
                 t_rtos_analog_clock_widget.cpp
                 )
+include_directories(test_rtos_clock PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include  )
 target_link_libraries(test_rtos_clock 
             pico_stdlib 
             utilities_probe

@@ -1,4 +1,3 @@
-include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
 add_executable( test_rtos_ctrl_focus 
                 test_rtos_ctrl_focus.cpp
                 t_rtos_ctrl_focus_text_and_graph_widgets.cpp
@@ -8,6 +7,7 @@ add_executable( test_rtos_ctrl_focus
                 t_rtos_ctrl_focus_ST7735_display_setup.cpp
                 t_rtos_ctrl_focus_SSD1306_display_setup.cpp
                 )
+include_directories(test_rtos_ctrl_focus PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include  )
 target_link_libraries(test_rtos_ctrl_focus 
             pico_stdlib 
             utilities_probe
