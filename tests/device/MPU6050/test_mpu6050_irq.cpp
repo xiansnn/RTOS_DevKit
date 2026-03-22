@@ -11,7 +11,7 @@ Probe pr_D1 = Probe(1);
 
 #define MPU_INT 21 // gpio connnected to MPU INT pin
 
-struct_ConfigMasterI2C cfg_i2c{
+struct_ConfigMasterI2C cfg_mpu6050_i2c{
     .i2c = i2c1,
     .sda_pin = 2,
     .scl_pin = 3,
@@ -50,8 +50,8 @@ int main()
     stdio_init_all();
     int32_t sample_period_ms = 1000 / mpu_cfg.SAMPLE_RATE_Hz;
     // create I2C bus hw peripheral and MPU
-    HW_I2C_Master master = HW_I2C_Master(cfg_i2c);
-    MPU6050 mpu = MPU6050(&master, mpu_cfg);
+    HW_I2C_Master i2c_mpu_master = HW_I2C_Master(cfg_mpu6050_i2c);
+    MPU6050 mpu = MPU6050(&i2c_mpu_master, mpu_cfg);
 
     gpio_set_irq_enabled_with_callback(MPU_INT, GPIO_IRQ_EDGE_FALL, true, &gpio_callback);
 

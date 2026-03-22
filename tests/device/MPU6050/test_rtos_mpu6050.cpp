@@ -11,12 +11,12 @@ Probe p1 = Probe(1);
 Probe p4 = Probe(4);
 Probe p5 = Probe(5);
 
-extern struct_ConfigMasterI2C cfg_i2c;
+extern struct_ConfigMasterI2C cfg_mpu6050_i2c;
 extern struct_ConfigMPU6050 mpu_cfg;
 
 void mpu_6050_data_ready_INT_callback(uint gpio, uint32_t events);
-HW_I2C_Master master = HW_I2C_Master(cfg_i2c);
-my_rtos_MPU6050Model mpu = my_rtos_MPU6050Model(&master, mpu_cfg, MPU_INT, mpu_6050_data_ready_INT_callback);
+rtos_HW_I2C_Master i2c_mpu_master = rtos_HW_I2C_Master(cfg_mpu6050_i2c);
+my_rtos_MPU6050Model mpu = my_rtos_MPU6050Model(&i2c_mpu_master, mpu_cfg, MPU_INT, mpu_6050_data_ready_INT_callback);
 
 void mpu_6050_data_ready_INT_callback(uint gpio, uint32_t events)
 {
@@ -29,7 +29,7 @@ int main()
     stdio_init_all();
 
     xTaskCreate(my_mpu_reading_task, "mpu_reading", 256, &p5, 5, NULL);
-    
+
     xTaskCreate(idle_task, "idle_task", 256, &p0, 0, NULL);
     vTaskStartScheduler();
 

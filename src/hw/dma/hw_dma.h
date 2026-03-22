@@ -11,14 +11,14 @@
 
 #pragma once
 
-#include "hardware/dma.h"
-#include "hardware/irq.h"
+#include <hardware/dma.h>
+#include <hardware/irq.h>
 #include "hw/spi/hw_spi.h"
 #include "hw/i2c/hw_i2c.h"
-#include "FreeRTOS.h"
-#include "task.h"
-#include "semphr.h"
-#include "queue.h"
+#include <FreeRTOS.h>
+#include <task.h>
+#include <semphr.h>
+#include <queue.h>
 
 /// @brief I2C max FIFO size (according to RP2040 datasheet)
 #define I2C_BURST_SIZE 16

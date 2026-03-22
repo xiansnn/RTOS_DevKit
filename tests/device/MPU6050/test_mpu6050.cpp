@@ -9,7 +9,7 @@
 Probe pr_D4 = Probe(4);
 Probe pr_D5 = Probe(5);
 
-struct_ConfigMasterI2C cfg_i2c{
+struct_ConfigMasterI2C cfg_mpu6050_i2c{
     .i2c = i2c1,
     .sda_pin = 2,
     .scl_pin = 3,
@@ -37,8 +37,8 @@ void print_raw_data(struct_RawData raw_data)
 int main()
 {
     stdio_init_all();
-    HW_I2C_Master master = HW_I2C_Master(cfg_i2c);
-    MPU6050 mpu = MPU6050(&master, mpu_cfg);
+    HW_I2C_Master i2c_mpu_master = HW_I2C_Master(cfg_mpu6050_i2c);
+    MPU6050 mpu = MPU6050(&i2c_mpu_master, mpu_cfg);
     int32_t sample_period_ms = 1000 / mpu_cfg.SAMPLE_RATE_Hz;
     float t = mpu.get_MPU_temperature();
     printf("temperature : %.2f\n", t);

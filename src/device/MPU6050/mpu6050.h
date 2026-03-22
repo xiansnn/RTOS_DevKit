@@ -11,7 +11,7 @@
 #pragma once
 
 #include "pico/stdlib.h"
-#include "hw/i2c/hw_i2c.h"
+#include "hw/i2c/rtos_hw_i2c.h"
 #include "config_MPU6050.h"
 #include "FreeRTOS.h"
 #include "task.h"
@@ -109,7 +109,7 @@ private:
     /// @brief the callback function to call when data ready interrupt occurs
     gpio_irq_callback_t data_ready_irq_call_back;
     /// @brief the I2C master that control the MPU6050 device
-    HW_I2C_Master *master;
+    HW_I2C_Master *i2c_mpu_master;
     /// @brief the MPU6050 configuration
     struct_ConfigMPU6050 device_config;
     /// @brief the accelerator proportional factor computed according to the device configuration
@@ -163,10 +163,10 @@ public:
     /**
      * @brief Construct a new MPU6050 object
      *
-     * @param master The associated I2C bus master
+     * @param i2c_mpu_master The associated I2C bus master
      * @param default_config the default config according to struct_ConfigMPU6050
      */
-    MPU6050(HW_I2C_Master *master, struct_ConfigMPU6050 default_config,
+    MPU6050(HW_I2C_Master *i2c_mpu_master, struct_ConfigMPU6050 default_config,
             int gpio_data_ready_irq = 0, gpio_irq_callback_t data_ready_irq_call_back = nullptr);
 
     /// @brief the isr to call when data ready interrupt occurs
