@@ -23,7 +23,7 @@ struct struct_ConfigMPU6050
     /// @brief MPU address, assuming AD0 pin is low otherwise = 0x69
     uint8_t MPU_ADDR = 0x68;
     /// @brief Reg 0x19: set sensors sample rate in Hz
-    uint16_t SAMPLE_RATE = 100;
+    uint16_t SAMPLE_RATE_Hz = 100;
     /// @brief Reg 0x1A: Digital Low-Pass Filter bandwidth.  values in { 250, 200, 100, 50, 20, 10, 5}Hz
     uint8_t DLPF_BW = 50;
     /// @brief Reg 0x1A: external synchronisation via FSYNC pin.

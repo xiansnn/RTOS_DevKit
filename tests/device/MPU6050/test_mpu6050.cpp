@@ -16,7 +16,7 @@ struct_ConfigMasterI2C cfg_i2c{
     .baud_rate = I2C_STANDARD_MODE};
 
 struct_ConfigMPU6050 mpu_cfg{
-    .SAMPLE_RATE = 50,
+    .SAMPLE_RATE_Hz = 50,
     .DLPF_BW = 5};
 
 void print_measures(struct_MPUData measures)
@@ -39,7 +39,7 @@ int main()
     stdio_init_all();
     HW_I2C_Master master = HW_I2C_Master(cfg_i2c);
     MPU6050 mpu = MPU6050(&master, mpu_cfg);
-    int32_t sample_period_ms = 1000 / mpu_cfg.SAMPLE_RATE;
+    int32_t sample_period_ms = 1000 / mpu_cfg.SAMPLE_RATE_Hz;
     float t = mpu.get_MPU_temperature();
     printf("temperature : %.2f\n", t);
     while (true)

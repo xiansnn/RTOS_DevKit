@@ -78,7 +78,7 @@ void MPU6050::init_mpu()
     else if (this->device_config.DLPF_BW == 5)
         DLPF_CFG = DLPF_CFG_5HZ;
     this->master->single_byte_write(this->device_config.MPU_ADDR, CONFIG_RA, this->device_config.EXT_SYNC | DLPF_CFG);
-    uint8_t sample_div = int((this->device_config.GYRO_OUT_RATE / this->device_config.SAMPLE_RATE) - 1);
+    uint8_t sample_div = int((this->device_config.GYRO_OUT_RATE / this->device_config.SAMPLE_RATE_Hz) - 1);
     this->master->single_byte_write(this->device_config.MPU_ADDR, SMPLRT_DIV_RA, sample_div);
     // set gyro sensor resolution
     this->gyro_factor = (float)this->device_config.GYRO_FULL_SCALE_RANGE / 32768.;
