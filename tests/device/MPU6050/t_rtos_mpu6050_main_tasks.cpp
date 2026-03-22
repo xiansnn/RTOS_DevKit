@@ -2,8 +2,20 @@
 #include "t_rtos_mpu6050_main_classes.h"
 
 extern my_rtos_MPU6050Model mpu;
-extern SemaphoreHandle_t data_ready_semaphore;
-void mpu_6050_INT_callback(uint gpio, uint32_t events);
+void mpu_6050_data_ready_INT_callback(uint gpio, uint32_t events);
+
+void idle_task(void *probe)
+{
+    while (true)
+    {
+        if (probe != NULL)
+        {
+            ((Probe *)probe)->hi();
+            ((Probe *)probe)->lo();
+        }
+    }
+}
+
 
 void my_mpu_reading_task(void *probe)
 {

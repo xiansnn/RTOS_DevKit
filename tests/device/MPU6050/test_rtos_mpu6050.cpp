@@ -6,6 +6,7 @@
 #include "t_rtos_mpu6050_main_classes.h"
 #include "t_rtos_mpu6050_main_tasks.h"
 
+Probe p0 = Probe(0);
 Probe p1 = Probe(1);
 Probe p4 = Probe(4);
 Probe p5 = Probe(5);
@@ -33,6 +34,8 @@ int main()
     stdio_init_all();
 
     xTaskCreate(my_mpu_reading_task, "mpu_reading", 256, &p5, 5, NULL);
+    
+    xTaskCreate(idle_task, "idle_task", 256, &p0, 0, NULL);
     vTaskStartScheduler();
 
     while (true)
