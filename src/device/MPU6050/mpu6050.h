@@ -1,22 +1,26 @@
 /**
  * @file mpu6050.h
  * @author xiansnn (xiansnn@hotmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2025-01-11
- * 
+ *
  * @copyright Copyright (c) 2025
- * 
+ *
  */
 #pragma once
 
 #include "pico/stdlib.h"
 #include "hw/i2c/hw_i2c.h"
 #include "config_MPU6050.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
 
 /**
  * @brief minimal set of MPU configuration data
- * 
+ *
  */
 struct struct_ConfigMPU6050
 {
@@ -95,11 +99,15 @@ struct struct_MPUData
 /**
  * @brief Class that manage the MPU6050 3-axes accelerometer/gyrometer
  * \ingroup sensor
- * \note I2C signals are very sensitive. May not work properly when wiring is not clean 
+ * \note I2C signals are very sensitive. May not work properly when wiring is not clean
  */
 class MPU6050
 {
 private:
+    /// @brief the gpio pin used for data ready interrupt
+    int gpio_data_ready_irq;
+    /// @brief the callback function to call when data ready interrupt occurs
+    gpio_irq_callback_t data_ready_irq_call_back;
     /// @brief the I2C master that control the MPU6050 device
     HW_I2C_Master *master;
     /// @brief the MPU6050 configuration
@@ -150,13 +158,19 @@ private:
     void read_FIFO_accel_raw_data();
 
 public:
+    /// @brief the semaphore to signal the availability of new data
+    SemaphoreHandle_t data_ready_semaphore;
     /**
      * @brief Construct a new MPU6050 object
      *
      * @param master The associated I2C bus master
      * @param default_config the default config according to struct_ConfigMPU6050
      */
-    MPU6050(HW_I2C_Master *master, struct_ConfigMPU6050 default_config);
+    MPU6050(HW_I2C_Master *master, struct_ConfigMPU6050 default_config,
+            int gpio_data_ready_irq = 0, gpio_irq_callback_t data_ready_irq_call_back = nullptr);
+
+    /// @brief the isr to call when data ready interrupt occurs
+    void data_ready_isr();
     /**
      * @brief Get the FIFO count object
      *

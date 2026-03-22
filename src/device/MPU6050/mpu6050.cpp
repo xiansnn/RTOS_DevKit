@@ -4,13 +4,30 @@
 #include <stdio.h>
 #include <math.h>
 
-MPU6050::MPU6050(HW_I2C_Master *master, struct_ConfigMPU6050 mpu_config)
+MPU6050::MPU6050(HW_I2C_Master *master, struct_ConfigMPU6050 mpu_config,
+                 int gpio_data_ready_irq, gpio_irq_callback_t data_ready_irq_call_back)
 {
+
+    data_ready_semaphore = xSemaphoreCreateBinary();
+
+    if((gpio_data_ready_irq != 0) && (data_ready_irq_call_back != nullptr))
+    {
+        gpio_set_irq_enabled_with_callback(gpio_data_ready_irq, GPIO_IRQ_EDGE_FALL, true, data_ready_irq_call_back);
+    }
+
     this->master = master;
     this->device_config = mpu_config;
     this->init_mpu();
     sleep_ms(1);
     this->calibrate();
+}
+
+void MPU6050::data_ready_isr()
+{
+    irq_set_enabled(gpio_data_ready_irq, false);
+    BaseType_t pxHigherPriorityTaskWoken = pdFALSE;
+    xSemaphoreGiveFromISR(data_ready_semaphore, &pxHigherPriorityTaskWoken);
+    irq_set_enabled(gpio_data_ready_irq, true);
 }
 
 struct_I2CXferResult MPU6050::read_registers_all_raw_data()

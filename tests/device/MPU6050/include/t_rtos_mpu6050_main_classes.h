@@ -8,13 +8,10 @@
 class my_rtos_MPU6050Model : public MPU6050, public rtos_Model
 {
 private:
-int gpio_data_ready_irq;
-gpio_irq_callback_t data_ready_irq_call_back;
+
 public:
-    SemaphoreHandle_t data_ready_semaphore;
     my_rtos_MPU6050Model(HW_I2C_Master *master, struct_ConfigMPU6050 default_config, int gpio_data_ready_irq, gpio_irq_callback_t data_ready_irq_call_back);
     ~my_rtos_MPU6050Model();
-    void data_ready_isr();
 
     void print_measures();
     void print_raw_data();
