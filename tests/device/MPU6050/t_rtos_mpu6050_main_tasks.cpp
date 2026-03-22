@@ -21,7 +21,7 @@ void my_mpu_reading_task(void *probe)
 {
     while (true)
     {
-        xSemaphoreTake(data_ready_semaphore,portMAX_DELAY););
+        xSemaphoreTake(mpu.data_ready_semaphore, portMAX_DELAY);
         if (probe != NULL)
             ((Probe *)probe)->hi();
         struct_I2CXferResult result = mpu.get_measures();

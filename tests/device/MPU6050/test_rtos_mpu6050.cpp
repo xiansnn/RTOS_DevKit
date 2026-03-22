@@ -14,19 +14,14 @@ Probe p5 = Probe(5);
 extern struct_ConfigMasterI2C cfg_i2c;
 extern struct_ConfigMPU6050 mpu_cfg;
 
-SemaphoreHandle_t data_ready_semaphore = xSemaphoreCreateBinary();
-
-void mpu_6050_INT_callback(uint gpio, uint32_t events);
+void mpu_6050_data_ready_INT_callback(uint gpio, uint32_t events);
 HW_I2C_Master master = HW_I2C_Master(cfg_i2c);
-my_rtos_MPU6050Model mpu = my_rtos_MPU6050Model(&master, mpu_cfg, mpu_6050_INT_callback);
+my_rtos_MPU6050Model mpu = my_rtos_MPU6050Model(&master, mpu_cfg, MPU_INT, mpu_6050_data_ready_INT_callback);
 
-void mpu_6050_INT_callback(uint gpio, uint32_t events)
+void mpu_6050_data_ready_INT_callback(uint gpio, uint32_t events)
 {
     p1.hi();
-    gpio_set_irq_enabled(gpio, GPIO_IRQ_EDGE_FALL, false);
-    BaseType_t pxHigherPriorityTaskWoken = pdFALSE;
-    xSemaphoreGiveFromISR(data_ready_semaphore,&pxHigherPriorityTaskWoken);
-    gpio_set_irq_enabled(gpio, GPIO_IRQ_EDGE_FALL, true);
+    mpu.data_ready_isr();
     p1.lo();
 }
 int main()
