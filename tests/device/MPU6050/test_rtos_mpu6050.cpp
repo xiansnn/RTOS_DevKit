@@ -23,22 +23,16 @@ void mpu_6050_INT_callback(uint gpio, uint32_t events)
 {
     p1.hi();
     gpio_set_irq_enabled(gpio, GPIO_IRQ_EDGE_FALL, false);
-    
     BaseType_t pxHigherPriorityTaskWoken = pdFALSE;
     xSemaphoreGiveFromISR(data_ready_semaphore,&pxHigherPriorityTaskWoken);
-    // vTaskNotifyGiveFromISR(mpu.task_handle, &pxHigherPriorityTaskWoken);
-
     gpio_set_irq_enabled(gpio, GPIO_IRQ_EDGE_FALL, true);
     p1.lo();
 }
 int main()
 {
     stdio_init_all();
-    // create I2C bus hw peripheral and MPU
 
-    // gpio_set_irq_enabled_with_callback(MPU_INT, GPIO_IRQ_EDGE_FALL, true, &mpu_6050_INT_callback);
-
-    xTaskCreate(my_mpu_reading_task, "reading", 256, &p5, 5, &mpu.task_handle);
+    xTaskCreate(my_mpu_reading_task, "mpu_reading", 256, &p5, 5, NULL);
     vTaskStartScheduler();
 
     while (true)
