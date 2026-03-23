@@ -145,10 +145,6 @@ private:
      */
     struct_I2CXferResult read_registers_all_raw_data();
     /**
-     * @brief start the calibration of the MPU and compute gyro and accellero offset and conversion factor
-     */
-    void calibrate();
-    /**
      * @brief fill the internal measures by converting the raw data
      */
     void convert_raw_to_measure();
@@ -158,6 +154,10 @@ private:
     void read_FIFO_accel_raw_data();
 
 public:
+    /// @brief start the calibration of the MPU and compute gyro and accellero offset and conversion factor.
+    /// @note must be execute after the mpu init and before getting measures
+    void calibrate();
+
     /// @brief the semaphore to signal the availability of new data
     SemaphoreHandle_t data_ready_semaphore;
     /**

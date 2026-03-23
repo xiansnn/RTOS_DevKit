@@ -19,6 +19,7 @@ void idle_task(void *probe)
 
 void my_mpu_reading_task(void *probe)
 {
+    mpu.calibrate();
     while (true)
     {
         xSemaphoreTake(mpu.data_ready_semaphore, portMAX_DELAY);

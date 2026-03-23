@@ -18,8 +18,6 @@ MPU6050::MPU6050(HW_I2C_Master *i2c_mpu_master, struct_ConfigMPU6050 mpu_config,
     this->i2c_mpu_master = i2c_mpu_master;
     this->device_config = mpu_config;
     this->init_mpu();
-    sleep_ms(1);
-    this->calibrate();
 }
 
 void MPU6050::data_ready_isr()
@@ -131,6 +129,8 @@ void MPU6050::init_mpu()
     this->i2c_mpu_master->single_byte_write(this->device_config.MPU_ADDR, INT_PIN_CFG_RA, this->device_config.INT_PIN_CFG);
     // configure INT on Data ready
     this->i2c_mpu_master->single_byte_write(this->device_config.MPU_ADDR, INT_ENABLE_RA, this->device_config.INT_ENABLE);
+
+    sleep_ms(1);
 }
 
 void MPU6050::read_FIFO_g_accel_raw_data()
