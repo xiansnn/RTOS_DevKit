@@ -108,7 +108,8 @@ private:
     int gpio_data_ready_irq;
     /// @brief the callback function to call when data ready interrupt occurs
     gpio_irq_callback_t data_ready_irq_call_back;
-    /// @brief the I2C master that control the MPU6050 device
+    /// @brief The I2C master that control the MPU6050 device
+    /// @note This is not the rtos implementation of HW_I2C_Master, but the basic one. The size of I2C burst read doesn't worth the overhead of using the rtos implementation with DMA.
     HW_I2C_Master *i2c_mpu_master;
     /// @brief the MPU6050 configuration
     struct_ConfigMPU6050 device_config;

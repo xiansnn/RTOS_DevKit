@@ -16,20 +16,23 @@ void idle_task(void *probe)
     }
 }
 
-
 void my_mpu_reading_task(void *probe)
 {
     mpu.calibrate();
+
     while (true)
     {
         xSemaphoreTake(mpu.data_ready_semaphore, portMAX_DELAY);
         if (probe != NULL)
             ((Probe *)probe)->hi();
-        struct_I2CXferResult result = mpu.get_measures();
+        mpu.get_measures();
         if (probe != NULL)
             ((Probe *)probe)->lo();
-        if (result.error)
-            printf("i2c error : %s \n", result.context.c_str());
+
+        if (probe != NULL)
+            ((Probe *)probe)->hi();
         mpu.print_measures();
+        if (probe != NULL)
+            ((Probe *)probe)->lo();
     }
 }

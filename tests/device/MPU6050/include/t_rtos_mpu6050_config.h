@@ -14,5 +14,5 @@ extern Probe p7;
 
 
 #define GPIO_MPU_INT 21 // gpio connnected to MPU INT pin
-#define MPU_SAMPLE_RATE_Hz 50
+#define MPU_SAMPLE_RATE_Hz 20
 
