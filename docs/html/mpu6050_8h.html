@@ -65,29 +65,66 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;pico/stdlib.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="hw__i2c_8h_source.html">hw/i2c/hw_i2c.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="rtos__hw__i2c_8h_source.html">hw/i2c/rtos_hw_i2c.h</a>&quot;</code><br />
 <code>#include &quot;config_MPU6050.h&quot;</code><br />
+<code>#include &quot;FreeRTOS.h&quot;</code><br />
+<code>#include &quot;task.h&quot;</code><br />
+<code>#include &quot;queue.h&quot;</code><br />
+<code>#include &quot;semphr.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for mpu6050.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="mpu6050_8h__incl.png" border="0" usemap="#ampu6050_8h" loading="lazy" alt=""/></div>
 <map name="ampu6050_8h" id="ampu6050_8h">
-<area shape="rect" title=" " alt="" coords="175,5,250,30"/>
-<area shape="rect" title=" " alt="" coords="5,151,84,175"/>
-<area shape="poly" title=" " alt="" coords="201,32,71,142,68,138,197,28"/>
-<area shape="rect" href="hw__i2c_8h.html" title=" " alt="" coords="163,78,262,103"/>
-<area shape="poly" title=" " alt="" coords="214,28,215,64,210,61,211,33"/>
-<area shape="rect" href="config___m_p_u6050_8h_source.html" title=" " alt="" coords="286,78,395,103"/>
-<area shape="poly" title=" " alt="" coords="234,28,309,70,303,71,233,33"/>
-<area shape="poly" title=" " alt="" coords="186,106,87,147,85,142,184,101"/>
-<area shape="rect" title=" " alt="" coords="107,151,200,175"/>
-<area shape="poly" title=" " alt="" coords="205,102,175,141,172,136,200,104"/>
-<area shape="rect" title=" " alt="" coords="224,151,321,175"/>
-<area shape="poly" title=" " alt="" coords="224,101,256,139,250,139,221,106"/>
-<area shape="rect" title=" " alt="" coords="345,151,384,175"/>
-<area shape="poly" title=" " alt="" coords="238,101,333,146,328,146,237,106"/>
-<area shape="rect" title=" " alt="" coords="408,151,457,175"/>
-<area shape="poly" title=" " alt="" coords="249,101,396,148,391,150,248,106"/>
+<area shape="rect" title=" " alt="" coords="441,5,516,30"/>
+<area shape="rect" title=" " alt="" coords="98,296,177,321"/>
+<area shape="poly" title=" " alt="" coords="438,23,348,38,289,52,227,71,165,97,106,130,55,173,32,197,13,225,9,236,9,246,24,265,52,280,86,293,81,296,50,285,21,269,4,248,3,235,8,222,28,194,51,169,103,126,163,92,225,66,288,47,347,33,443,21"/>
+<area shape="rect" href="rtos__hw__i2c_8h.html" title=" " alt="" coords="417,78,540,103"/>
+<area shape="poly" title=" " alt="" coords="480,28,481,64,476,61,477,33"/>
+<area shape="rect" title=" " alt="" coords="119,223,196,248"/>
+<area shape="poly" title=" " alt="" coords="463,33,189,216,186,212,460,28"/>
+<area shape="rect" title=" " alt="" coords="674,223,724,248"/>
+<area shape="poly" title=" " alt="" coords="495,28,554,76,625,148,682,212,676,211,621,152,550,80,494,33"/>
+<area shape="rect" title=" " alt="" coords="799,223,865,248"/>
+<area shape="poly" title=" " alt="" coords="500,28,584,76,804,214,799,215,581,80,499,33"/>
+<area shape="rect" title=" " alt="" coords="34,223,94,248"/>
+<area shape="poly" title=" " alt="" coords="451,32,355,80,99,218,97,213,352,76,455,29"/>
+<area shape="rect" href="config___m_p_u6050_8h_source.html" title=" " alt="" coords="868,78,977,103"/>
+<area shape="poly" title=" " alt="" coords="517,22,855,77,851,79,517,28"/>
+<area shape="poly" title=" " alt="" coords="414,101,314,120,194,146,137,163,87,181,48,202,24,225,19,235,19,244,31,262,55,277,86,291,81,293,53,282,28,266,14,246,14,234,19,222,45,198,85,176,136,157,193,141,313,114,419,99"/>
+<area shape="rect" href="hw__i2c_8h.html" title=" " alt="" coords="586,223,649,248"/>
+<area shape="poly" title=" " alt="" coords="494,101,550,149,603,212,597,211,546,153,493,106"/>
+<area shape="rect" title=" " alt="" coords="713,296,810,321"/>
+<area shape="poly" title=" " alt="" coords="528,101,578,117,635,142,691,176,716,198,738,222,753,251,761,282,756,279,748,252,734,225,713,201,688,180,633,146,577,122,528,106"/>
+<area shape="rect" href="hw__dma_8h.html" title=" " alt="" coords="422,151,536,175"/>
+<area shape="poly" title=" " alt="" coords="480,101,481,137,476,134,477,105"/>
+<area shape="rect" title=" " alt="" coords="221,223,313,248"/>
+<area shape="poly" title=" " alt="" coords="464,102,298,217,295,212,459,104"/>
+<area shape="poly" title=" " alt="" coords="454,106,198,219,196,214,452,101"/>
+<area shape="poly" title=" " alt="" coords="499,101,579,148,673,214,668,214,576,153,499,106"/>
+<area shape="poly" title=" " alt="" coords="541,101,618,120,698,148,757,179,807,214,802,213,754,184,696,153,616,125,541,106"/>
+<area shape="poly" title=" " alt="" coords="438,105,294,153,110,220,108,215,293,148,443,102"/>
+<area shape="poly" title=" " alt="" coords="588,245,574,251,363,284,192,304,191,299,362,279,573,245,583,246"/>
+<area shape="rect" title=" " alt="" coords="533,296,627,321"/>
+<area shape="poly" title=" " alt="" coords="614,247,595,285,592,280,609,250"/>
+<area shape="poly" title=" " alt="" coords="642,246,727,289,721,288,641,251"/>
+<area shape="rect" title=" " alt="" coords="650,296,689,321"/>
+<area shape="poly" title=" " alt="" coords="627,246,654,285,649,283,625,251"/>
+<area shape="rect" title=" " alt="" coords="461,296,510,321"/>
+<area shape="poly" title=" " alt="" coords="598,248,522,291,520,286,593,249"/>
+<area shape="poly" title=" " alt="" coords="502,173,584,216,578,216,501,179"/>
+<area shape="rect" title=" " alt="" coords="460,223,561,248"/>
+<area shape="poly" title=" " alt="" coords="485,174,502,210,497,208,483,178"/>
+<area shape="poly" title=" " alt="" coords="441,177,317,221,315,216,446,175"/>
+<area shape="rect" href="hw__spi_8h.html" title=" " alt="" coords="338,223,436,248"/>
+<area shape="poly" title=" " alt="" coords="466,175,415,216,412,212,461,177"/>
+<area shape="poly" title=" " alt="" coords="424,178,212,225,210,220,427,174"/>
+<area shape="poly" title=" " alt="" coords="515,173,661,221,656,222,515,179"/>
+<area shape="poly" title=" " alt="" coords="536,173,787,224,782,225,536,178"/>
+<area shape="poly" title=" " alt="" coords="419,173,284,195,110,226,109,220,283,189,424,171"/>
+<area shape="poly" title=" " alt="" coords="348,249,192,294,191,289,343,248"/>
+<area shape="rect" title=" " alt="" coords="340,296,433,321"/>
+<area shape="poly" title=" " alt="" coords="389,247,389,282,385,279,385,250"/>
 </map>
 </div>
 </div>

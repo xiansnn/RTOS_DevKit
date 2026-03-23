@@ -11,6 +11,6 @@ var structstruct___config_m_p_u6050 =
     [ "INT_PIN_CFG", "structstruct___config_m_p_u6050.html#ade7f01f848248106b52b5073cfd967b6", null ],
     [ "MPU_ADDR", "structstruct___config_m_p_u6050.html#acf79176ed664b066365717df749cacd7", null ],
     [ "PWR_MGMT_1", "structstruct___config_m_p_u6050.html#a69f73e2978403f376143fbabe46b8722", null ],
-    [ "SAMPLE_RATE", "structstruct___config_m_p_u6050.html#ae1d0a186e799f5a3eec4294afe631725", null ],
+    [ "SAMPLE_RATE_Hz", "structstruct___config_m_p_u6050.html#a60301592ede3094fab5ddf8a382b6f91", null ],
     [ "SIGNAL_PATH_RESET", "structstruct___config_m_p_u6050.html#a1381c37f4dac6cf4d3846c49a80e1f65", null ]
 ];

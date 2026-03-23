@@ -1,0 +1,7 @@
+<map id="MPU6050::calibrate" name="MPU6050::calibrate">
+<area shape="rect" id="Node000001" title="start the calibration of the MPU and compute gyro and accellero offset and conversion factor." alt="" coords="5,31,121,55"/>
+<area shape="rect" id="Node000002" href="$class_m_p_u6050.html#ac6f4794ef371942d4e8e29231957ab6b" title="the flag that indicates if sensors data are ready" alt="" coords="203,5,346,30"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,34,191,27,186,29,121,39"/>
+<area shape="rect" id="Node000003" href="$class_m_p_u6050.html#aaca71fa3f6e0b72c49dd70544f8fef72" title="fill the internal data with raw values from sensors" alt="" coords="169,55,380,79"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="121,47,156,53,151,54,121,52"/>
+</map>
