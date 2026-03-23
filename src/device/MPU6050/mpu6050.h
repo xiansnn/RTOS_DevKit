@@ -160,12 +160,14 @@ public:
 
     /// @brief the semaphore to signal the availability of new data
     SemaphoreHandle_t data_ready_semaphore;
-    /**
-     * @brief Construct a new MPU6050 object
+
+    /**@brief Construct a new MPU6050 object with data ready interrupt configuration
      *
      * @param i2c_mpu_master The associated I2C bus master
      * @param default_config the default config according to struct_ConfigMPU6050
-     */
+     * @param gpio_data_ready_irq the gpio pin used for data ready interrupt
+     * @param data_ready_irq_call_back the callback function to call when data ready interrupt occurs
+     */  
     MPU6050(HW_I2C_Master *i2c_mpu_master, struct_ConfigMPU6050 default_config,
             int gpio_data_ready_irq = 0, gpio_irq_callback_t data_ready_irq_call_back = nullptr);
 
