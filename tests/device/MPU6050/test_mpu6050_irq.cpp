@@ -9,7 +9,7 @@ Probe pr_D4 = Probe(4);
 Probe pr_D5 = Probe(5);
 Probe pr_D1 = Probe(1);
 
-#define MPU_INT 21 // gpio connnected to MPU INT pin
+#define GPIO_MPU_INT 21 // gpio connnected to MPU INT pin
 
 struct_ConfigMasterI2C cfg_mpu6050_i2c{
     .i2c = i2c1,
@@ -53,7 +53,7 @@ int main()
     HW_I2C_Master i2c_mpu_master = HW_I2C_Master(cfg_mpu6050_i2c);
     MPU6050 mpu = MPU6050(&i2c_mpu_master, mpu_cfg);
 
-    gpio_set_irq_enabled_with_callback(MPU_INT, GPIO_IRQ_EDGE_FALL, true, &gpio_callback);
+    gpio_set_irq_enabled_with_callback(GPIO_MPU_INT, GPIO_IRQ_EDGE_FALL, true, &gpio_callback);
 
     while (true)
     {
