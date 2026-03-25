@@ -27,6 +27,7 @@ void mpu_6050_data_ready_INT_callback(uint gpio, uint32_t events)
     mpu.data_ready_isr();
     p1.lo();
 }
+
 int main()
 {
     stdio_init_all();
