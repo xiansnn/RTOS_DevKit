@@ -6,24 +6,26 @@
 #             utilities_probe
 #             )
 # #-------------------------------------------------------------------------------------
-add_executable(test_mpu6050_irq   test_mpu6050_irq.cpp   )
-target_link_libraries(test_mpu6050_irq 
-            pico_stdlib 
-            device_mpu6050  
-            hw_i2c 
-            utilities_probe
-            )
-#-------------------------------------------------------------------------------------
+# add_executable(test_mpu6050_irq   test_mpu6050_irq.cpp   )
+# target_link_libraries(test_mpu6050_irq 
+#             pico_stdlib 
+#             device_mpu6050  
+#             hw_i2c 
+#             utilities_probe
+#             )
+# #-------------------------------------------------------------------------------------
 add_executable(test_rtos_mpu6050_irq   test_rtos_mpu6050.cpp
             t_rtos_mpu6050_main_classes.cpp
             t_rtos_mpu6050_main_tasks.cpp
+            t_rtos_mpu6050_console_widget.cpp
                )
 include_directories(test_rtos_mpu6050_irq PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include  )
 target_link_libraries(test_rtos_mpu6050_irq 
             pico_stdlib 
             device_mpu6050 
             rtos_ui_core 
-            rtos_hw_i2c 
+            rtos_hw_i2c
+            rtos_widget
             FreeRTOS-Kernel-Heap4 
             utilities_probe
             )

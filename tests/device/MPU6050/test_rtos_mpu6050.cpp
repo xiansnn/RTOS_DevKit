@@ -5,6 +5,7 @@
 
 #include "t_rtos_mpu6050_main_classes.h"
 #include "t_rtos_mpu6050_main_tasks.h"
+#include "t_rtos_mpu6050_console_widget.h"
 
 Probe p0 = Probe(0);
 Probe p1 = Probe(1);
@@ -18,6 +19,8 @@ void mpu_6050_data_ready_INT_callback(uint gpio, uint32_t events);
 rtos_HW_I2C_Master i2c_mpu_master = rtos_HW_I2C_Master(cfg_mpu6050_i2c);
 my_rtos_MPU6050Model mpu = my_rtos_MPU6050Model(&i2c_mpu_master, mpu_cfg, GPIO_MPU_INT, mpu_6050_data_ready_INT_callback);
 
+my_mpu_console_widget console_widget = my_mpu_console_widget(&mpu);
+
 void mpu_6050_data_ready_INT_callback(uint gpio, uint32_t events)
 {
     p1.hi();
@@ -29,6 +32,11 @@ int main()
     stdio_init_all();
 
     xTaskCreate(my_mpu_reading_task, "mpu_reading", 256, &p5, 5, NULL);
+
+    #if defined(ENABLE_PRINT_MEASURES)
+    xTaskCreate(my_mpu_printing_task, "mpu_printing", 256, &p4, 5, &console_widget.task_handle);
+    #endif // ENABLE_PRINT_MEASURE
+    
 
     xTaskCreate(idle_task, "idle_task", 256, &p0, 0, NULL);
     vTaskStartScheduler();
