@@ -9,8 +9,12 @@
 
 Probe p0 = Probe(0);
 Probe p1 = Probe(1);
+// Probe p2 = Probe(2); I2C SDA
+// Probe p3 = Probe(3); I2C SCL
 Probe p4 = Probe(4);
 Probe p5 = Probe(5);
+// Probe p6 = Probe(6); MPU_INT
+Probe p7 = Probe(7);
 
 extern struct_ConfigMasterI2C cfg_mpu6050_i2c;
 extern struct_ConfigMPU6050 mpu_cfg;

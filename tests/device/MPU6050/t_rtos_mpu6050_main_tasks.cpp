@@ -20,14 +20,22 @@ void idle_task(void *probe)
 
 void my_mpu_reading_task(void *probe)
 {
+    if (probe != NULL)
+        ((Probe *)probe)->hi();
+
     mpu.calibrate();
+
+    if (probe != NULL)
+        ((Probe *)probe)->lo();
 
     while (true)
     {
         xSemaphoreTake(mpu.data_ready_semaphore, portMAX_DELAY);
         if (probe != NULL)
             ((Probe *)probe)->hi();
+
         mpu.get_measures();
+        
         if (probe != NULL)
             ((Probe *)probe)->lo();
 
