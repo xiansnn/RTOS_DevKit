@@ -157,7 +157,10 @@ private:
 public:
     /// @brief start the calibration of the MPU and compute gyro and accellero offset and conversion factor.
     /// @note must be execute after the mpu init and before getting measures
-    void calibrate();
+    void process_calibration();
+
+    /// @brief the flag that indicates if calibration is done
+    bool calibration_done = false;
 
     /// @brief the semaphore to signal the availability of new data
     SemaphoreHandle_t data_ready_semaphore;

@@ -23,7 +23,7 @@ void my_mpu_reading_task(void *probe)
     if (probe != NULL)
         ((Probe *)probe)->hi();
 
-    mpu.calibrate();
+    mpu.process_calibration();
 
     if (probe != NULL)
         ((Probe *)probe)->lo();

@@ -7,17 +7,16 @@
 MPU6050::MPU6050(HW_I2C_Master *i2c_mpu_master, struct_ConfigMPU6050 mpu_config,
                  int gpio_data_ready_irq, gpio_irq_callback_t data_ready_irq_call_back)
 {
-
-    data_ready_semaphore = xSemaphoreCreateBinary();
-
-    if((gpio_data_ready_irq != 0) && (data_ready_irq_call_back != nullptr))
-    {
-        gpio_set_irq_enabled_with_callback(gpio_data_ready_irq, GPIO_IRQ_EDGE_FALL, true, data_ready_irq_call_back);
-    }
-
     this->i2c_mpu_master = i2c_mpu_master;
     this->device_config = mpu_config;
     this->init_mpu();
+    
+    data_ready_semaphore = xSemaphoreCreateBinary();
+
+    if ((gpio_data_ready_irq != 0) && (data_ready_irq_call_back != nullptr))
+    {
+        gpio_set_irq_enabled_with_callback(gpio_data_ready_irq, GPIO_IRQ_EDGE_FALL, true, data_ready_irq_call_back);
+    }
 }
 
 void MPU6050::data_ready_isr()
@@ -155,8 +154,10 @@ void MPU6050::read_FIFO_accel_raw_data()
     this->raw.g_z = (read_buf[4] << 8) + read_buf[5];
 }
 
-void MPU6050::calibrate()
+void MPU6050::process_calibration()
 {
+    this->is_data_ready(); // reset Data ready IRQ
+
     float accel_x{};
     float accel_y{};
     float accel_z{};
@@ -166,9 +167,10 @@ void MPU6050::calibrate()
     size_t nb_sample{100};
 
     size_t i = 0;
+
     while (i < nb_sample)
     {
-        if (this->is_data_ready())
+        xSemaphoreTake(this->data_ready_semaphore, portMAX_DELAY);
         {
             this->read_registers_all_raw_data();
             accel_x += (float)this->raw.g_x;
@@ -179,7 +181,6 @@ void MPU6050::calibrate()
             gyro_z += (float)this->raw.gyro_z;
             i++;
         }
-        sleep_ms(1);
     }
     float ax = accel_x / nb_sample;
     float ay = accel_y / nb_sample;
@@ -195,6 +196,8 @@ void MPU6050::calibrate()
     this->gyro_x_offset = (-gx) * this->gyro_factor;
     this->gyro_y_offset = (-gy) * this->gyro_factor;
     this->gyro_z_offset = (-gz) * this->gyro_factor;
+
+    this->calibration_done = true;
 }
 
 float MPU6050::get_MPU_temperature()

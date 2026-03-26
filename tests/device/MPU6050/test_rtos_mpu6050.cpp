@@ -33,15 +33,13 @@ void mpu_6050_data_ready_INT_callback(uint gpio, uint32_t events)
 }
 
 int main()
-{
-    stdio_init_all();
-
-    xTaskCreate(my_mpu_reading_task, "mpu_reading", 256, &p5, 5, NULL);
-
+{   
     #if defined(ENABLE_PRINT_MEASURES)
+    stdio_init_all();
     xTaskCreate(my_mpu_printing_task, "mpu_printing", 256, &p4, 5, &console_widget.task_handle);
-    #endif // ENABLE_PRINT_MEASURE
+    #endif // ENABLE_PRINT_MEASURES
     
+    xTaskCreate(my_mpu_reading_task, "mpu_reading", 256, &p5, 5, NULL);
 
     xTaskCreate(idle_task, "idle_task", 256, &p0, 0, NULL);
     vTaskStartScheduler();
