@@ -35,11 +35,26 @@ void my_mpu_reading_task(void *probe)
             ((Probe *)probe)->hi();
 
         mpu.get_measures();
-        
+
         if (probe != NULL)
             ((Probe *)probe)->lo();
 
         mpu.notify_all_linked_widget_task();
+    }
+}
+
+void my_mpu_calibration_task(void *probe)
+{
+    while (true)
+    {
+        if (!mpu.calibration_done)
+        {
+            if (probe != NULL)
+                ((Probe *)probe)->hi();
+            mpu.process_calibration();
+            if (probe != NULL)
+                ((Probe *)probe)->lo();
+        }
     }
 }
 

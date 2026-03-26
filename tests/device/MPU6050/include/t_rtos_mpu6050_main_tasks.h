@@ -6,3 +6,5 @@ void idle_task(void *robe);
 void my_mpu_reading_task(void *probe);
 
 void my_mpu_printing_task(void *probe);
+
+void my_mpu_calibration_task( void* probe);

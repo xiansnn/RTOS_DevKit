@@ -40,6 +40,7 @@ int main()
     #endif // ENABLE_PRINT_MEASURES
     
     xTaskCreate(my_mpu_reading_task, "mpu_reading", 256, &p5, 5, NULL);
+    // xTaskCreate(my_mpu_calibration_task, "mpu_calibrating", 256, &p7, 5, NULL);
 
     xTaskCreate(idle_task, "idle_task", 256, &p0, 0, NULL);
     vTaskStartScheduler();

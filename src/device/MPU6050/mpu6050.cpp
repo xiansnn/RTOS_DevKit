@@ -10,7 +10,7 @@ MPU6050::MPU6050(HW_I2C_Master *i2c_mpu_master, struct_ConfigMPU6050 mpu_config,
     this->i2c_mpu_master = i2c_mpu_master;
     this->device_config = mpu_config;
     this->init_mpu();
-    
+
     data_ready_semaphore = xSemaphoreCreateBinary();
 
     if ((gpio_data_ready_irq != 0) && (data_ready_irq_call_back != nullptr))
@@ -157,7 +157,6 @@ void MPU6050::read_FIFO_accel_raw_data()
 void MPU6050::process_calibration()
 {
     this->is_data_ready(); // reset Data ready IRQ
-
     float accel_x{};
     float accel_y{};
     float accel_z{};
