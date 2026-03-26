@@ -156,6 +156,7 @@ void MPU6050::read_FIFO_accel_raw_data()
 
 void MPU6050::process_calibration()
 {
+    this->calibration_status = CalibrationStatus::IN_PROGRESS;
     this->is_data_ready(); // reset Data ready IRQ
     float accel_x{};
     float accel_y{};
@@ -196,7 +197,7 @@ void MPU6050::process_calibration()
     this->gyro_y_offset = (-gy) * this->gyro_factor;
     this->gyro_z_offset = (-gz) * this->gyro_factor;
 
-    this->calibration_done = true;
+    this->calibration_status = CalibrationStatus::DONE;
 }
 
 float MPU6050::get_MPU_temperature()

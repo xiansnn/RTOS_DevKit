@@ -47,7 +47,7 @@ void my_mpu_calibration_task(void *probe)
 {
     while (true)
     {
-        if (!mpu.calibration_done)
+        if (mpu.calibration_status == CalibrationStatus::REQUIRED)
         {
             if (probe != NULL)
                 ((Probe *)probe)->hi();

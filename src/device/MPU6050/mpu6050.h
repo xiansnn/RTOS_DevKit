@@ -96,6 +96,16 @@ struct struct_MPUData
     float gyro_z;
 };
 
+/// @brief calibration status
+enum class CalibrationStatus {
+    /// @brief calibration is required, not started yet
+    REQUIRED,
+    /// @brief calibration is in progress
+    IN_PROGRESS,
+    /// @brief calibration is done
+    DONE
+};
+
 /**
  * @brief Class that manage the MPU6050 3-axes accelerometer/gyrometer
  * \ingroup sensor
@@ -160,7 +170,7 @@ public:
     void process_calibration();
 
     /// @brief the flag that indicates if calibration is done
-    bool calibration_done = false;
+    CalibrationStatus calibration_status = CalibrationStatus::REQUIRED;
 
     /// @brief the semaphore to signal the availability of new data
     SemaphoreHandle_t data_ready_semaphore;
