@@ -164,7 +164,7 @@ void MPU6050::process_calibration()
     float gyro_x{};
     float gyro_y{};
     float gyro_z{};
-    size_t nb_sample{100};
+    size_t nb_sample{this->device_config.SAMPLE_RATE_Hz};
 
     size_t i = 0;
 

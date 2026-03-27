@@ -12,4 +12,5 @@ public:
     my_rtos_MPU6050Model(HW_I2C_Master *i2c_mpu_master, struct_ConfigMPU6050 default_config,
                          int gpio_data_ready_irq, gpio_irq_callback_t data_ready_irq_call_back);
     ~my_rtos_MPU6050Model();
+
 };

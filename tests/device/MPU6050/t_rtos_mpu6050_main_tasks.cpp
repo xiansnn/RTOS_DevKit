@@ -18,42 +18,48 @@ void idle_task(void *probe)
     }
 }
 
-void my_mpu_reading_task(void *probe)
+void my_mpu_process_measures_task(void *probe)
 {
-    if (probe != NULL)
-        ((Probe *)probe)->hi();
-
-    mpu.process_calibration();
-
-    if (probe != NULL)
-        ((Probe *)probe)->lo();
+    // size_t nb_sample;
+    // float accel_x{};
+    // float accel_y{};
+    // float accel_z{};
+    // float gyro_x{};
+    // float gyro_y{};
+    // float gyro_z{};
+    mpu.is_data_ready(); // reset Data ready IRQ
 
     while (true)
     {
         xSemaphoreTake(mpu.data_ready_semaphore, portMAX_DELAY);
-        if (probe != NULL)
-            ((Probe *)probe)->hi();
-
-        mpu.get_measures();
-
-        if (probe != NULL)
-            ((Probe *)probe)->lo();
-
-        mpu.notify_all_linked_widget_task();
-    }
-}
-
-void my_mpu_calibration_task(void *probe)
-{
-    while (true)
-    {
-        if (mpu.calibration_status == CalibrationStatus::REQUIRED)
+        switch (mpu.calibration_status)
         {
+        case CalibrationStatus::REQUIRED:
+            if (probe != NULL)
+                ((Probe *)probe)->hi();
+            mpu.read_registers_all_raw_data();
+            mpu.calibration_status = CalibrationStatus::IN_PROGRESS;
+            if (probe != NULL)
+                ((Probe *)probe)->lo();
+            break;
+        case CalibrationStatus::IN_PROGRESS:
             if (probe != NULL)
                 ((Probe *)probe)->hi();
             mpu.process_calibration();
             if (probe != NULL)
                 ((Probe *)probe)->lo();
+            break;
+        case CalibrationStatus::DONE:
+            if (probe != NULL)
+                ((Probe *)probe)->hi();
+            mpu.get_measures();
+            mpu.notify_all_linked_widget_task();
+            if (probe != NULL)
+                ((Probe *)probe)->lo();
+
+            break;
+        default:
+            break;
         }
     }
 }
