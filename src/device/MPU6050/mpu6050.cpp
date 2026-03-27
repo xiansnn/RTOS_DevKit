@@ -156,8 +156,8 @@ void MPU6050::read_FIFO_accel_raw_data()
 
 void MPU6050::process_calibration()
 {
-    this->calibration_status = CalibrationStatus::IN_PROGRESS;
     this->is_data_ready(); // reset Data ready IRQ
+    this->calibration_status = CalibrationStatus::IN_PROGRESS;
     float accel_x{};
     float accel_y{};
     float accel_z{};
