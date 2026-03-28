@@ -1,4 +1,5 @@
 #pragma once
+#include "device/MPU6050/mpu6050.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"

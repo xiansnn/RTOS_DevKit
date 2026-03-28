@@ -6,6 +6,7 @@
 
 MPU6050::MPU6050(HW_I2C_Master *i2c_mpu_master, struct_ConfigMPU6050 mpu_config,
                  int gpio_data_ready_irq, gpio_irq_callback_t data_ready_irq_call_back)
+    : rtos_Model()
 {
     this->i2c_mpu_master = i2c_mpu_master;
     this->device_config = mpu_config;
@@ -25,6 +26,29 @@ void MPU6050::data_ready_isr()
     BaseType_t pxHigherPriorityTaskWoken = pdFALSE;
     xSemaphoreGiveFromISR(data_ready_semaphore, &pxHigherPriorityTaskWoken);
     irq_set_enabled(gpio_data_ready_irq, true);
+}
+
+void MPU6050::process_measures_task(void *)
+{
+    this->is_data_ready(); // reset Data ready IRQ
+
+    while (true)
+    {
+        xSemaphoreTake(this->data_ready_semaphore, portMAX_DELAY);
+        switch (this->calibration_status)
+        {
+        case CalibrationStatus::REQUIRED:
+            this->process_calibration();
+            break;
+        case CalibrationStatus::DONE:
+            this->get_measures();
+            this->notify_all_linked_widget_task();
+            break;
+        default:
+            this->is_data_ready(); // reset Data ready IRQ
+            break;
+        }
+    }
 }
 
 struct_I2CXferResult MPU6050::read_registers_all_raw_data()

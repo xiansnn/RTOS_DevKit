@@ -2,7 +2,7 @@
 
 #include <math.h>
 
-my_mpu_console_widget::my_mpu_console_widget(my_rtos_MPU6050Model *my_mpu)
+my_mpu_console_widget::my_mpu_console_widget(MPU6050 *my_mpu)
     : rtos_Widget(my_mpu)
 {
 }
@@ -17,7 +17,7 @@ void my_mpu_console_widget::get_value_of_interest()
 
 void my_mpu_console_widget::draw()
 {
-    my_rtos_MPU6050Model *mpu = (my_rtos_MPU6050Model *)this->actual_rtos_displayed_model;
+    MPU6050 *mpu = (MPU6050 *)this->actual_rtos_displayed_model;
     struct_MPUData data = mpu->data;
 
     printf("Temp = %+.2f\t AccX = %+.2f\tY = %+.2f\tZ = %+.2f",data.temp_out, data.g_x, data.g_y, data.g_z);

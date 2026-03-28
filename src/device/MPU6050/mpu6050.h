@@ -12,6 +12,7 @@
 
 #include "pico/stdlib.h"
 #include "hw/i2c/rtos_hw_i2c.h"
+#include "sw/ui_core/rtos_ui_core.h"
 #include "config_MPU6050.h"
 #include "FreeRTOS.h"
 #include "task.h"
@@ -110,15 +111,16 @@ enum class CalibrationStatus
 /**
  * @brief Class that manage the MPU6050 3-axes accelerometer/gyrometer
  * \ingroup sensor
- * \note I2C signals are very sensitive. May not work properly when wiring is not clean
  */
-class MPU6050
+class MPU6050 : public rtos_Model
 {
 private:
     /// @brief the gpio pin used for data ready interrupt
     int gpio_data_ready_irq;
+
     /// @brief the callback function to call when data ready interrupt occurs
     gpio_irq_callback_t data_ready_irq_call_back;
+
     /// @brief The I2C master that control the MPU6050 device
     /// @note This is not the rtos implementation of HW_I2C_Master, but the basic one. The size of I2C burst read doesn't worth the overhead of using the rtos implementation with DMA.
     HW_I2C_Master *i2c_mpu_master;
@@ -128,13 +130,14 @@ private:
      *
      */
     void init_mpu();
+    
     /// @brief read raw acceleration and gyrometer data from FIFO
     void read_FIFO_g_accel_raw_data();
+
     /// @brief read raw acceleration data from FIFO
     void read_FIFO_accel_raw_data();
-    /**
-     * @brief fill the internal measures by converting the raw data
-     */
+
+    /// @brief fill the internal measures by converting the raw data
     void convert_raw_to_measure();
 
     /// @brief the accelerator proportional factor computed according to the device configuration
@@ -157,56 +160,8 @@ private:
     float gyro_y_offset{};
     /// @brief the z-gyrometer offset
     float gyro_z_offset{};
-
-public:
     /// @brief the MPU6050 configuration
     struct_ConfigMPU6050 device_config;
-
-    /**
-     * @brief fill the internal data with raw values from sensors
-     *
-     * @return struct_I2CXferResult The result of the i2c reading
-     */
-    struct_I2CXferResult read_registers_all_raw_data();
-
-    /// @brief start the calibration of the MPU and compute gyro and accellero offset and conversion factor.
-    /// @note must be execute after the mpu init and before getting measures
-    void process_calibration();
-
-  
-    /// @brief the flag that indicates if calibration is done
-    CalibrationStatus calibration_status = CalibrationStatus::REQUIRED;
-
-    /// @brief the semaphore to signal the availability of new data
-    SemaphoreHandle_t data_ready_semaphore;
-
-    /**@brief Construct a new MPU6050 object with data ready interrupt configuration
-     *
-     * @param i2c_mpu_master The associated I2C bus master
-     * @param default_config the default config according to struct_ConfigMPU6050
-     * @param gpio_data_ready_irq the gpio pin used for data ready interrupt
-     * @param data_ready_irq_call_back the callback function to call when data ready interrupt occurs
-     */
-    MPU6050(HW_I2C_Master *i2c_mpu_master, struct_ConfigMPU6050 default_config,
-            int gpio_data_ready_irq = 0, gpio_irq_callback_t data_ready_irq_call_back = nullptr);
-
-    /// @brief the isr to call when data ready interrupt occurs
-    void data_ready_isr();
-    /**
-     * @brief Get the FIFO count object
-     *
-     * @return uint16_t
-     */
-    uint16_t get_FIFO_count();
-    /// @brief  the set of measures from sensors
-    struct_MPUData data;
-    /// @brief the set of raw data from sensors
-    struct_RawData raw;
-    /**
-     * @brief Get the MPU temperature object
-     * @return float
-     */
-    float get_MPU_temperature();
     /**
      * @brief the flag that indicates if sensors data are ready
      *
@@ -220,7 +175,61 @@ public:
      * @return struct_MPUData
      */
     struct_I2CXferResult get_measures();
+    /**
+     * @brief fill the internal data with raw values from sensors
+     *
+     * @return struct_I2CXferResult The result of the i2c reading
+     */
+    struct_I2CXferResult read_registers_all_raw_data();
+
+    /// @brief start the calibration of the MPU and compute gyro and accellero offset and conversion factor.
+    /// @note must be execute after the mpu init and before getting measures
+    void process_calibration();
+
+    /// @brief the flag that indicates if calibration is done
+    CalibrationStatus calibration_status = CalibrationStatus::REQUIRED;
+
+    /// @brief the semaphore to signal the availability of new data
+    SemaphoreHandle_t data_ready_semaphore;
+    
+    /**
+     * @brief Get the FIFO count object
+     *
+     * @return uint16_t
+     */
+    uint16_t get_FIFO_count();
+
+    /// @brief the set of raw data from sensors
+    struct_RawData raw;
+
+    /**
+     * @brief Get the MPU temperature object
+     * @return float
+     */
+    float get_MPU_temperature();
+
     /// @brief read raw data from FIFO
-    /// \bug   //FIXME : check FIFO data reading.... seems not working well
     void read_FIFO_all_raw_data();
+
+public:
+
+    /// @brief the isr to call when data ready interrupt occurs
+    void data_ready_isr();
+
+    /// @brief  the task to process measures, should be called in a dedicated task to avoid blocking the data ready interrupt
+    /// @param     probe the probe to toggle for debugging purpose, can be set to NULL if not used
+    void process_measures_task(void *probe);
+
+    /// @brief  the set of measures from sensors
+    struct_MPUData data;
+
+    /**@brief Construct a new MPU6050 object with data ready interrupt configuration
+     *
+     * @param i2c_mpu_master The associated I2C bus master
+     * @param default_config the default config according to struct_ConfigMPU6050
+     * @param gpio_data_ready_irq the gpio pin used for data ready interrupt
+     * @param data_ready_irq_call_back the callback function to call when data ready interrupt occurs
+     */
+    MPU6050(HW_I2C_Master *i2c_mpu_master, struct_ConfigMPU6050 default_config,
+            int gpio_data_ready_irq = 0, gpio_irq_callback_t data_ready_irq_call_back = nullptr);
 };

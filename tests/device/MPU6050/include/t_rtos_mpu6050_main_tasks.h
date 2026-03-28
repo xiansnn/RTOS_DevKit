@@ -4,6 +4,6 @@
 
 void idle_task(void *robe);
 
-void my_mpu_process_measures_task(void *probe);
+void mpu_process_measures_task(void *probe);
 
 void my_mpu_printing_task(void *probe);
