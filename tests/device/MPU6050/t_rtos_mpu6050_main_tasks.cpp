@@ -3,7 +3,7 @@
 
 extern MPU6050 mpu;
 extern my_mpu_console_widget console_widget;
-void mpu_6050_DATA_READY_INT_callback(uint gpio, uint32_t events);
+void mpu_6050_shared_IRQ_callback(uint gpio, uint32_t events);
 
 void idle_task(void *probe)
 {
@@ -19,11 +19,7 @@ void idle_task(void *probe)
 
 void mpu_process_measures_task(void *probe)
 {
-    if (probe != NULL)
-        ((Probe *)probe)->hi();
     mpu.process_measures_task(probe);
-    if (probe != NULL)
-        ((Probe *)probe)->lo();
 }
 
 void my_mpu_printing_task(void *probe)

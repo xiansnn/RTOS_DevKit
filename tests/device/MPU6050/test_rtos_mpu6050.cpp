@@ -5,6 +5,7 @@
 
 #include "t_rtos_mpu6050_main_tasks.h"
 #include "t_rtos_mpu6050_console_widget.h"
+#include "t_rtos_mpu6050_control.h"
 
 Probe p0 = Probe(0);
 Probe p1 = Probe(1);
@@ -14,6 +15,9 @@ Probe p4 = Probe(4);
 Probe p5 = Probe(5);
 // Probe p6 = Probe(6); MPU_INT
 Probe p7 = Probe(7);
+
+extern struct_rtosConfigSwitchButton cfg_central_switch;
+static QueueHandle_t central_switch_isr_queue = xQueueCreate(5, sizeof(struct_SwitchButtonIRQData));
 
 //--------------- setup I2C Master connected to MPU---------------------
 void i2c_irq_handler();
@@ -35,19 +39,55 @@ struct_ConfigMPU6050 mpu_cfg{
     .SAMPLE_RATE_Hz = MPU_SAMPLE_RATE_Hz,
     .DLPF_BW = 5};
 
-void mpu_6050_DATA_READY_INT_callback(uint gpio, uint32_t events);
-MPU6050 mpu = MPU6050(&i2c_mpu_master, mpu_cfg, GPIO_MPU_INT, mpu_6050_DATA_READY_INT_callback);
+void mpu_6050_shared_IRQ_callback(uint gpio, uint32_t events);
+MPU6050 mpu = MPU6050(&i2c_mpu_master, mpu_cfg, GPIO_MPU_INT, mpu_6050_shared_IRQ_callback);
 
-void mpu_6050_DATA_READY_INT_callback(uint gpio, uint32_t events)
+// void mpu_6050_shared_IRQ_callback(uint gpio, uint32_t events)
+// {
+//     mpu.data_ready_isr();
+// }
+void mpu_6050_shared_IRQ_callback(uint gpio, uint32_t event_mask)
 {
-    p1.hi();
-    mpu.data_ready_isr();
-    p1.lo();
-}
+    struct_SwitchButtonIRQData data;
+    gpio_set_irq_enabled(gpio, GPIO_IRQ_EDGE_FALL | GPIO_IRQ_EDGE_RISE, false);
+    data.current_time_us = time_us_32();
+    data.event_mask = event_mask;
+    BaseType_t pxHigherPriorityTaskWoken = pdFALSE;
+    
+    switch (gpio)
+    {
+        case GPIO_MPU_INT:
+        if (event_mask & GPIO_IRQ_EDGE_FALL)
+        {
+            p1.hi();
+            mpu.data_ready_isr();
+            p1.lo();
+        }
+
+        break;
+    case GPIO_MPU_RESET:
+        // xQueueSendFromISR(central_switch_isr_queue, &data, &pxHigherPriorityTaskWoken);
+        if (event_mask & GPIO_IRQ_EDGE_RISE)
+        {
+            p5.hi();
+            mpu.reset();
+            p5.lo();
+        }
+        
+        break;
+    default:
+        break;
+    }
+    portYIELD_FROM_ISR(&pxHigherPriorityTaskWoken);
+    gpio_set_irq_enabled(gpio, GPIO_IRQ_EDGE_FALL | GPIO_IRQ_EDGE_RISE, true);
+};
 
 //--------------- setup console widget---------------------
 my_mpu_console_widget console_widget = my_mpu_console_widget(&mpu);
-
+//--------------- setup reset switch---------------------
+rtos_SwitchButton central_switch = rtos_SwitchButton(GPIO_MPU_RESET, &mpu_6050_shared_IRQ_callback,
+                                                     central_switch_isr_queue,
+                                                     cfg_central_switch);
 
 //-----------------------------main--------------------------
 int main()
@@ -57,7 +97,7 @@ int main()
     xTaskCreate(my_mpu_printing_task, "mpu_printing", 256, &p4, 5, &console_widget.task_handle);
 #endif // ENABLE_PRINT_MEASURES
 
-    xTaskCreate(mpu_process_measures_task, "mpu_process_measures", 256, &p5, 5, NULL);
+    xTaskCreate(mpu_process_measures_task, "mpu_process_measures", 256, &p7, 5, NULL);
 
     xTaskCreate(idle_task, "idle_task", 256, &p0, 0, NULL);
     vTaskStartScheduler();

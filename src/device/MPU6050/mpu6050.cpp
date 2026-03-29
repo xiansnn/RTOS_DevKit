@@ -27,9 +27,9 @@ void MPU6050::data_ready_isr()
     xSemaphoreGiveFromISR(data_ready_semaphore, &pxHigherPriorityTaskWoken);
     irq_set_enabled(gpio_data_ready_irq, true);
 }
-
-void MPU6050::process_measures_task(void *)
+void MPU6050::process_measures_task(void *probe)
 {
+    Probe *p = (Probe *)probe;
     this->is_data_ready(); // reset Data ready IRQ
 
     while (true)
@@ -38,10 +38,27 @@ void MPU6050::process_measures_task(void *)
         switch (this->calibration_status)
         {
         case CalibrationStatus::REQUIRED:
+            if (p != nullptr)
+            {
+                p->hi();
+            }
             this->process_calibration();
+            if (p != nullptr)
+            {
+                p->lo();
+            }
+
             break;
         case CalibrationStatus::DONE:
+            if (p != nullptr)
+            {
+                p->hi();
+            }
             this->get_measures();
+            if (p != nullptr)
+            {
+                p->lo();
+            }
             this->notify_all_linked_widget_task();
             break;
         default:
@@ -49,6 +66,13 @@ void MPU6050::process_measures_task(void *)
             break;
         }
     }
+}
+
+void MPU6050::reset()
+{
+    this->calibration_status = CalibrationStatus::REQUIRED;
+    // this->i2c_mpu_master->single_byte_write(this->device_config.MPU_ADDR, PWR_MGMT_1_RA, DEVICE_RESET);
+    // sleep_ms(100);
 }
 
 struct_I2CXferResult MPU6050::read_registers_all_raw_data()

@@ -223,6 +223,11 @@ public:
     /// @brief  the set of measures from sensors
     struct_MPUData data;
 
+    /// @brief reset the MPU6050 device.
+    /// Should be called in case of I2C communication error to reset the device and avoid lock up.
+    /// It cleans the device registers and start a calibration process.
+    void reset();
+
     /**@brief Construct a new MPU6050 object with data ready interrupt configuration
      *
      * @param i2c_mpu_master The associated I2C bus master
