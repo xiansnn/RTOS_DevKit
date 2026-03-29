@@ -16,9 +16,6 @@ Probe p5 = Probe(5);
 // Probe p6 = Probe(6); MPU_INT
 Probe p7 = Probe(7);
 
-extern struct_rtosConfigSwitchButton cfg_central_switch;
-static QueueHandle_t central_switch_isr_queue = xQueueCreate(5, sizeof(struct_SwitchButtonIRQData));
-
 //--------------- setup I2C Master connected to MPU---------------------
 void i2c_irq_handler();
 struct_ConfigMasterI2C cfg_mpu6050_i2c{
@@ -35,28 +32,39 @@ void i2c_irq_handler()
     i2c_mpu_master.i2c_dma_isr();
 };
 //--------------- setup MPU---------------------
-struct_ConfigMPU6050 mpu_cfg{
+struct_ConfigMPU6050 cfg_mpu_device{
     .SAMPLE_RATE_Hz = MPU_SAMPLE_RATE_Hz,
     .DLPF_BW = 5};
 
-void mpu_6050_shared_IRQ_callback(uint gpio, uint32_t events);
-MPU6050 mpu = MPU6050(&i2c_mpu_master, mpu_cfg, GPIO_MPU_INT, mpu_6050_shared_IRQ_callback);
+void test_rtos_mpu6050_shared_IRQ_callback(uint gpio, uint32_t events);
+MPU6050 mpu = MPU6050(&i2c_mpu_master, cfg_mpu_device, GPIO_MPU_INT, test_rtos_mpu6050_shared_IRQ_callback);
 
-// void mpu_6050_shared_IRQ_callback(uint gpio, uint32_t events)
-// {
-//     mpu.data_ready_isr();
-// }
-void mpu_6050_shared_IRQ_callback(uint gpio, uint32_t event_mask)
+//--------------- setup reset switch---------------------
+struct_rtosConfigSwitchButton cfg_central_switch{
+    .debounce_delay_us = 5000,
+    .long_release_delay_us = 1000000,
+    .long_push_delay_ms = 1500,
+    .time_out_delay_ms = 5000};
+static QueueHandle_t central_switch_isr_queue = xQueueCreate(5, sizeof(struct_SwitchButtonIRQData));
+rtos_SwitchButton central_switch = rtos_SwitchButton(GPIO_MPU_RESET, &test_rtos_mpu6050_shared_IRQ_callback,
+                                                     central_switch_isr_queue,
+                                                     cfg_central_switch);
+
+//--------------- setup console widget---------------------
+my_mpu_console_widget console_widget = my_mpu_console_widget(&mpu);
+
+//-------------------- IRQ callback--------------------
+void test_rtos_mpu6050_shared_IRQ_callback(uint gpio, uint32_t event_mask)
 {
     struct_SwitchButtonIRQData data;
     gpio_set_irq_enabled(gpio, GPIO_IRQ_EDGE_FALL | GPIO_IRQ_EDGE_RISE, false);
     data.current_time_us = time_us_32();
     data.event_mask = event_mask;
     BaseType_t pxHigherPriorityTaskWoken = pdFALSE;
-    
+
     switch (gpio)
     {
-        case GPIO_MPU_INT:
+    case GPIO_MPU_INT:
         if (event_mask & GPIO_IRQ_EDGE_FALL)
         {
             p1.hi();
@@ -66,14 +74,9 @@ void mpu_6050_shared_IRQ_callback(uint gpio, uint32_t event_mask)
 
         break;
     case GPIO_MPU_RESET:
-        // xQueueSendFromISR(central_switch_isr_queue, &data, &pxHigherPriorityTaskWoken);
-        if (event_mask & GPIO_IRQ_EDGE_RISE)
-        {
-            p5.hi();
-            mpu.reset();
-            p5.lo();
-        }
-        
+        xQueueSendFromISR(central_switch.IRQdata_input_queue, &data, &pxHigherPriorityTaskWoken);
+        // mpu.reset();
+
         break;
     default:
         break;
@@ -81,13 +84,6 @@ void mpu_6050_shared_IRQ_callback(uint gpio, uint32_t event_mask)
     portYIELD_FROM_ISR(&pxHigherPriorityTaskWoken);
     gpio_set_irq_enabled(gpio, GPIO_IRQ_EDGE_FALL | GPIO_IRQ_EDGE_RISE, true);
 };
-
-//--------------- setup console widget---------------------
-my_mpu_console_widget console_widget = my_mpu_console_widget(&mpu);
-//--------------- setup reset switch---------------------
-rtos_SwitchButton central_switch = rtos_SwitchButton(GPIO_MPU_RESET, &mpu_6050_shared_IRQ_callback,
-                                                     central_switch_isr_queue,
-                                                     cfg_central_switch);
 
 //-----------------------------main--------------------------
 int main()
@@ -98,6 +94,8 @@ int main()
 #endif // ENABLE_PRINT_MEASURES
 
     xTaskCreate(mpu_process_measures_task, "mpu_process_measures", 256, &p7, 5, NULL);
+
+    xTaskCreate(central_switch_process_irq_event_task, "mpu_reset", 256, NULL, 4, NULL);
 
     xTaskCreate(idle_task, "idle_task", 256, &p0, 0, NULL);
     vTaskStartScheduler();
