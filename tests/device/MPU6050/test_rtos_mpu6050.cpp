@@ -38,16 +38,17 @@ struct_ConfigMPU6050 cfg_mpu_device{
 
 void test_rtos_mpu6050_shared_IRQ_callback(uint gpio, uint32_t events);
 MPU6050 mpu = MPU6050(&i2c_mpu_master, cfg_mpu_device, GPIO_MPU_INT, test_rtos_mpu6050_shared_IRQ_callback);
+my_mpu6050_controller mpu_controller = my_mpu6050_controller(&mpu);
 
-//--------------- setup reset switch---------------------
+//--------------- setup launch_calibration switch---------------------
 struct_rtosConfigSwitchButton cfg_central_switch{
     .debounce_delay_us = 5000,
     .long_release_delay_us = 1000000,
     .long_push_delay_ms = 1500,
     .time_out_delay_ms = 5000};
-static QueueHandle_t central_switch_isr_queue = xQueueCreate(5, sizeof(struct_SwitchButtonIRQData));
+
 rtos_SwitchButton central_switch = rtos_SwitchButton(GPIO_MPU_RESET, &test_rtos_mpu6050_shared_IRQ_callback,
-                                                     central_switch_isr_queue,
+                                                     mpu_controller.control_event_input_queue,
                                                      cfg_central_switch);
 
 //--------------- setup console widget---------------------
@@ -57,32 +58,25 @@ my_mpu_console_widget console_widget = my_mpu_console_widget(&mpu);
 void test_rtos_mpu6050_shared_IRQ_callback(uint gpio, uint32_t event_mask)
 {
     struct_SwitchButtonIRQData data;
-    gpio_set_irq_enabled(gpio, GPIO_IRQ_EDGE_FALL | GPIO_IRQ_EDGE_RISE, false);
-    data.current_time_us = time_us_32();
     data.event_mask = event_mask;
+    data.current_time_us = time_us_32();
     BaseType_t pxHigherPriorityTaskWoken = pdFALSE;
-
     switch (gpio)
     {
     case GPIO_MPU_INT:
-        if (event_mask & GPIO_IRQ_EDGE_FALL)
-        {
-            p1.hi();
-            mpu.data_ready_isr();
-            p1.lo();
-        }
-
+        p1.hi();
+        mpu.data_ready_isr();
+        p1.lo();
         break;
     case GPIO_MPU_RESET:
+        gpio_set_irq_enabled(GPIO_MPU_RESET, GPIO_IRQ_EDGE_FALL | GPIO_IRQ_EDGE_RISE, false);
         xQueueSendFromISR(central_switch.IRQdata_input_queue, &data, &pxHigherPriorityTaskWoken);
-        // mpu.reset();
-
+        portYIELD_FROM_ISR(&pxHigherPriorityTaskWoken);
+        gpio_set_irq_enabled(GPIO_MPU_RESET, GPIO_IRQ_EDGE_FALL | GPIO_IRQ_EDGE_RISE, true);
         break;
     default:
         break;
     }
-    portYIELD_FROM_ISR(&pxHigherPriorityTaskWoken);
-    gpio_set_irq_enabled(gpio, GPIO_IRQ_EDGE_FALL | GPIO_IRQ_EDGE_RISE, true);
 };
 
 //-----------------------------main--------------------------
@@ -96,6 +90,7 @@ int main()
     xTaskCreate(mpu_process_measures_task, "mpu_process_measures", 256, &p7, 5, NULL);
 
     xTaskCreate(central_switch_process_irq_event_task, "mpu_reset", 256, NULL, 4, NULL);
+    xTaskCreate(mpu_controller_task, "mpu_cntrl", 256, &p5, 6, NULL);
 
     xTaskCreate(idle_task, "idle_task", 256, &p0, 0, NULL);
     vTaskStartScheduler();

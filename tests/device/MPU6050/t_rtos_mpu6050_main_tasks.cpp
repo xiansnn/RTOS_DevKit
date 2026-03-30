@@ -5,6 +5,7 @@
 extern MPU6050 mpu;
 extern rtos_SwitchButton central_switch;
 extern my_mpu_console_widget console_widget;
+extern my_mpu6050_controller mpu_controller;
 
 void test_rtos_mpu6050_shared_IRQ_callback(uint gpio, uint32_t events);
 
@@ -28,6 +29,20 @@ void central_switch_process_irq_event_task(void *)
 void mpu_process_measures_task(void *probe)
 {
     mpu.process_measures_task(probe);
+}
+
+void mpu_controller_task(void *probe)
+{
+    struct_ControlEventData data;
+    while (true)
+    {
+        xQueueReceive(mpu_controller.control_event_input_queue, &data, portMAX_DELAY);
+        if (probe != NULL)
+            ((Probe *)probe)->hi();
+        mpu_controller.process_control_event(data);
+        if (probe != NULL)
+            ((Probe *)probe)->lo();
+    }
 }
 
 void my_mpu_printing_task(void *probe)

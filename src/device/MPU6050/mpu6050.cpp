@@ -22,11 +22,12 @@ MPU6050::MPU6050(HW_I2C_Master *i2c_mpu_master, struct_ConfigMPU6050 mpu_config,
 
 void MPU6050::data_ready_isr()
 {
-    irq_set_enabled(gpio_data_ready_irq, false);
+    gpio_set_irq_enabled(gpio_data_ready_irq, GPIO_IRQ_EDGE_FALL, false);
     BaseType_t pxHigherPriorityTaskWoken = pdFALSE;
     xSemaphoreGiveFromISR(data_ready_semaphore, &pxHigherPriorityTaskWoken);
-    irq_set_enabled(gpio_data_ready_irq, true);
+    gpio_set_irq_enabled(gpio_data_ready_irq, GPIO_IRQ_EDGE_FALL, true);
 }
+
 void MPU6050::process_measures_task(void *probe)
 {
     Probe *p = (Probe *)probe;
@@ -39,26 +40,17 @@ void MPU6050::process_measures_task(void *probe)
         {
         case CalibrationStatus::REQUIRED:
             if (p != nullptr)
-            {
                 p->hi();
-            }
             this->process_calibration();
             if (p != nullptr)
-            {
                 p->lo();
-            }
-
             break;
         case CalibrationStatus::DONE:
             if (p != nullptr)
-            {
                 p->hi();
-            }
             this->get_measures();
             if (p != nullptr)
-            {
                 p->lo();
-            }
             this->notify_all_linked_widget_task();
             break;
         default:
@@ -68,7 +60,7 @@ void MPU6050::process_measures_task(void *probe)
     }
 }
 
-void MPU6050::reset()
+void MPU6050::launch_calibration()
 {
     this->calibration_status = CalibrationStatus::REQUIRED;
     // this->i2c_mpu_master->single_byte_write(this->device_config.MPU_ADDR, PWR_MGMT_1_RA, DEVICE_RESET);

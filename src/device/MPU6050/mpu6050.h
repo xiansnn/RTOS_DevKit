@@ -226,7 +226,7 @@ public:
     /// @brief reset the MPU6050 device.
     /// Should be called in case of I2C communication error to reset the device and avoid lock up.
     /// It cleans the device registers and start a calibration process.
-    void reset();
+    void launch_calibration();
 
     /**@brief Construct a new MPU6050 object with data ready interrupt configuration
      *
