@@ -67,6 +67,12 @@ void MPU6050::launch_calibration()
     // sleep_ms(100);
 }
 
+void MPU6050::lauch_soft_reset()
+{
+    this->i2c_mpu_master->init_i2c_block_device();
+    this->init_mpu();
+}
+
 struct_I2CXferResult MPU6050::read_registers_all_raw_data()
 {
     struct_I2CXferResult result;

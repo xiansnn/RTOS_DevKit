@@ -130,7 +130,7 @@ private:
      *
      */
     void init_mpu();
-    
+
     /// @brief read raw acceleration and gyrometer data from FIFO
     void read_FIFO_g_accel_raw_data();
 
@@ -191,7 +191,7 @@ private:
 
     /// @brief the semaphore to signal the availability of new data
     SemaphoreHandle_t data_ready_semaphore;
-    
+
     /**
      * @brief Get the FIFO count object
      *
@@ -212,7 +212,6 @@ private:
     void read_FIFO_all_raw_data();
 
 public:
-
     /// @brief the isr to call when data ready interrupt occurs
     void data_ready_isr();
 
@@ -227,6 +226,9 @@ public:
     /// Should be called in case of I2C communication error to reset the device and avoid lock up.
     /// It cleans the device registers and start a calibration process.
     void launch_calibration();
+
+    /// @brief reset the MPU6050 device by reinitialising the I2C block device and reconfiguring the MPU6050 registers.
+    void lauch_soft_reset();
 
     /**@brief Construct a new MPU6050 object with data ready interrupt configuration
      *
