@@ -7,6 +7,7 @@
 HW_I2C_Master::HW_I2C_Master(struct_ConfigMasterI2C cfg)
 {
     this->i2c = cfg.i2c;
+    this->baud_rate = cfg.baud_rate;
     this->time_out_us_per_byte = 8 * 1500000 / cfg.baud_rate; // with 50% margin
     this->i2c_master_exclusive_irq_handler = cfg.i2c_tx_master_handler;
     this->i2c_irq_number = (i2c == i2c0) ? I2C0_IRQ : I2C1_IRQ;
@@ -26,7 +27,7 @@ HW_I2C_Master::HW_I2C_Master(struct_ConfigMasterI2C cfg)
     gpio_set_slew_rate(cfg.scl_pin, GPIO_SLEW_RATE_SLOW);
     gpio_set_input_hysteresis_enabled(cfg.scl_pin, true);
 
-    i2c_init(this->i2c, cfg.baud_rate);
+    init_i2c_block_device();
 }
 
 struct_I2CXferResult HW_I2C_Master::burst_byte_write(uint8_t slave_address, uint8_t slave_mem_addr, uint8_t *src, size_t len)
@@ -142,6 +143,11 @@ bool HW_I2C_Master::device_is_connected(uint8_t slave_address)
     uint8_t rxdata;
     nb = i2c_read_blocking(this->i2c, slave_address, &rxdata, 1, false);
     return (nb < 0 ? false : true);
+}
+
+void HW_I2C_Master::init_i2c_block_device()
+{
+    i2c_init(this->i2c, this->baud_rate);
 }
 
 void HW_I2C_Slave::slave_isr(i2c_slave_event_t event)

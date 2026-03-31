@@ -142,6 +142,8 @@ private:
 protected:
     /// @brief the i2c hardware instance of the Pico that handles the i2c master
     i2c_inst_t *i2c;
+    /// @brief the I2C baudrate:
+    uint baud_rate;
 
     /// @brief  a function pointer to the IRQ i2c_master_exclusive_handler, to the program that manage the I2C IRQ when used with DMA
     irq_handler_t i2c_master_exclusive_irq_handler = NULL;
@@ -209,6 +211,11 @@ public:
      * @return false no response
      */
     bool device_is_connected(uint8_t slave_address);
+
+    /// @brief initialize the i2c hardware instance as a master block device, with the given configuration. This is useful for example to reset the i2c bus in case of error.
+    void init_i2c_block_device();
+
+
 };
 
 /**
