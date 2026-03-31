@@ -1,0 +1,5 @@
+<map id="HW_I2C_Master::HW_I2C_Master" name="HW_I2C_Master::HW_I2C_Master">
+<area shape="rect" id="Node000001" title="Construct a new hw i2c master object." alt="" coords="5,5,191,30"/>
+<area shape="rect" id="Node000002" href="$class_h_w___i2_c___master.html#aadadd78bc8959ddabf57344d2d868d26" title="initialize the i2c hardware instance as a master block device, with the given configuration...." alt="" coords="239,5,445,30"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,15,226,18,220,18,191,20"/>
+</map>

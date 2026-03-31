@@ -1,5 +1,15 @@
 var NAVTREEINDEX4 =
 {
+"structstruct___config_master_s_p_i.html#ab78aa3af4bfc10ba6abc9ee4c1055644":[4,0,52,0],
+"structstruct___config_master_s_p_i.html#ad1ecee733307c3b94312fe5abb8ac24d":[4,0,52,3],
+"structstruct___config_master_s_p_i.html#ad2e47bcc07fef5657635598cb6bcea43":[4,0,52,7],
+"structstruct___config_master_s_p_i.html#adc10e9c122ca390727e762b8ca4bfa3a":[4,0,52,1],
+"structstruct___config_s_g90.html":[4,0,56],
+"structstruct___config_s_g90.html#a1adfe8bff0e581ebf86b11dd97d7153c":[4,0,56,3],
+"structstruct___config_s_g90.html#a581a0a3f493cacd65f9399888cf55a7e":[4,0,56,0],
+"structstruct___config_s_g90.html#a9c349601a83bb7b1a0b42cf927ec4bf5":[4,0,56,1],
+"structstruct___config_s_g90.html#aec659f7a3f081dfbcf34000c9f68d556":[4,0,56,2],
+"structstruct___config_s_s_d1306.html":[4,0,58],
 "structstruct___config_s_s_d1306.html#a27ab8f3d28d0e69ed5e50d0f7c431764":[4,0,58,9],
 "structstruct___config_s_s_d1306.html#a3b094002129dd70ad83fb49097d116e2":[4,0,58,2],
 "structstruct___config_s_s_d1306.html#a46285649cc2dec04cd99d29d0cc10706":[4,0,58,10],

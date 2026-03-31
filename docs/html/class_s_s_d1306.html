@@ -88,15 +88,15 @@ Collaboration diagram for SSD1306:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_s_s_d1306__coll__graph.png" border="0" usemap="#a_s_s_d1306_coll__map" loading="lazy" alt="Collaboration graph"/></div>
 <map name="a_s_s_d1306_coll__map" id="a_s_s_d1306_coll__map">
-<area shape="rect" title="SSD1306 128x64 pixel OLED display device driver with I2C interface." alt="" coords="503,473,951,1081"/>
-<area shape="rect" href="class_graphic_display_device.html" title="This is the abstract class to handle all generic behavior of physical graphic display devices (e...." alt="" coords="5,193,445,347"/>
-<area shape="poly" title=" " alt="" coords="312,355,505,549,500,551,311,361"/>
+<area shape="rect" title="SSD1306 128x64 pixel OLED display device driver with I2C interface." alt="" coords="503,511,951,1119"/>
+<area shape="rect" href="class_graphic_display_device.html" title="This is the abstract class to handle all generic behavior of physical graphic display devices (e...." alt="" coords="5,212,445,367"/>
+<area shape="poly" title=" " alt="" coords="309,374,505,579,500,581,308,380"/>
 <area shape="rect" href="class_display_device.html" title="A generic class for all display device." alt="" coords="157,5,293,88"/>
-<area shape="poly" title=" " alt="" coords="226,101,228,193,223,193,225,106"/>
-<area shape="rect" href="class_h_w___i2_c___master.html" title="this is a C++ wrapper for the original pico SDK i2c master API" alt="" coords="470,137,984,403"/>
-<area shape="poly" title=" " alt="" coords="728,400,729,457,724,455,726,405"/>
-<area shape="rect" href="structstruct___config_s_s_d1306.html" title="configuration data for SSD1306 OLED display. refer to datasheet for more details." alt="" coords="1008,142,1192,398"/>
-<area shape="poly" title=" " alt="" coords="1010,393,963,461,959,457,1006,397"/>
+<area shape="poly" title=" " alt="" coords="226,100,228,213,223,212,225,105"/>
+<area shape="rect" href="class_h_w___i2_c___master.html" title="this is a C++ wrapper for the original pico SDK i2c master API" alt="" coords="470,137,984,441"/>
+<area shape="poly" title=" " alt="" coords="728,439,729,496,724,494,726,443"/>
+<area shape="rect" href="structstruct___config_s_s_d1306.html" title="configuration data for SSD1306 OLED display. refer to datasheet for more details." alt="" coords="1008,161,1192,418"/>
+<area shape="poly" title=" " alt="" coords="1015,416,998,443,958,499,954,496,994,440,1011,419"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -426,7 +426,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>fill a pattern in the device framebuffer. this make it visible as soon as the device transfer the framebuffer to the pixels. The pattern is a vertical byte representing 8 vertical pixels (refer to MONO_VLSB framebuffer format) </p>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000002">Bug</a></b></dt><dd>// FIXME : PAGE_ADDRESSING_MODE seems misbehave depending on what was executed before </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug</a></b></dt><dd>// FIXME : PAGE_ADDRESSING_MODE seems misbehave depending on what was executed before </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pattern</td><td>the vertical pattern to copy in a set of 8 vertical pixel </td></tr>

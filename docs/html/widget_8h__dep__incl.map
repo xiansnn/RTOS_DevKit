@@ -1,8 +1,10 @@
 <map id="widget.h" name="widget.h">
 <area shape="rect" id="Node000001" title=" " alt="" coords="19,5,82,30"/>
 <area shape="rect" id="Node000002" href="$ui__core_8h.html" title=" " alt="" coords="18,78,83,103"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="42,43,46,78,41,77,41,48"/>
-<area shape="poly" id="edge3_Node000002_Node000001" title=" " alt="" coords="57,62,57,33,58,28,62,63"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="42,43,46,78,41,78,41,48"/>
+<area shape="poly" id="edge4_Node000002_Node000001" title=" " alt="" coords="57,62,57,33,58,28,62,63"/>
 <area shape="rect" id="Node000003" href="$rtos__ui__core_8h.html" title=" " alt="" coords="5,151,96,175"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="53,117,53,151,48,150,48,120"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="51,116,53,151,48,150,50,121"/>
+<area shape="rect" id="Node000004" href="$mpu6050_8h.html" title=" " alt="" coords="13,223,88,248"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="53,189,53,224,48,222,48,193"/>
 </map>

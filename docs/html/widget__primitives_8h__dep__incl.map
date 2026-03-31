@@ -1,17 +1,19 @@
 <map id="widget_primitives.h" name="widget_primitives.h">
 <area shape="rect" id="Node000001" title="Basic drawing primitives for widgets." alt="" coords="129,5,243,30"/>
 <area shape="rect" id="Node000002" href="$rtos__widget_8h.html" title=" " alt="" coords="53,78,140,103"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,42,113,80,109,76,161,38"/>
-<area shape="rect" id="Node000006" href="$widget_8h.html" title=" " alt="" coords="204,78,267,103"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="203,40,230,78,225,78,202,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,42,113,79,109,76,161,38"/>
+<area shape="rect" id="Node000007" href="$widget_8h.html" title=" " alt="" coords="204,78,267,103"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="203,40,230,78,225,78,202,45"/>
 <area shape="rect" id="Node000003" href="$rtos__ui__core_8h.html" title=" " alt="" coords="65,223,155,248"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="53,112,35,125,18,140,9,156,13,174,24,189,39,202,74,221,70,224,36,207,20,193,8,176,4,156,14,137,32,121,56,108"/>
-<area shape="rect" id="Node000004" href="$ssd1306_8h.html" title=" " alt="" coords="22,151,92,175"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="84,114,66,152,61,149,81,119"/>
-<area shape="rect" id="Node000005" href="$st7735_8h.html" title="inspired from various code source, including https://github.com/adafruit/Adafruit&#45;ST7735&#45;Library" alt="" coords="116,151,179,175"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="115,113,142,150,137,151,113,118"/>
-<area shape="rect" id="Node000007" href="$ui__core_8h.html" title=" " alt="" coords="203,151,268,175"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="228,116,231,151,226,149,225,120"/>
-<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="204,183,132,225,130,220,199,184"/>
-<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="242,134,241,105,244,101,247,136"/>
+<area shape="rect" id="Node000005" href="$ssd1306_8h.html" title=" " alt="" coords="22,151,92,175"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="81,119,66,151,61,149,84,114"/>
+<area shape="rect" id="Node000006" href="$st7735_8h.html" title="inspired from various code source, including https://github.com/adafruit/Adafruit&#45;ST7735&#45;Library" alt="" coords="116,151,179,175"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="114,113,142,150,137,151,114,118"/>
+<area shape="rect" id="Node000004" href="$mpu6050_8h.html" title=" " alt="" coords="72,296,148,321"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="112,262,112,297,108,295,108,266"/>
+<area shape="rect" id="Node000008" href="$ui__core_8h.html" title=" " alt="" coords="203,151,268,175"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="228,116,231,151,226,149,225,120"/>
+<area shape="poly" id="edge8_Node000008_Node000003" title=" " alt="" coords="200,185,132,225,129,220,204,182"/>
+<area shape="poly" id="edge9_Node000008_Node000007" title=" " alt="" coords="242,134,241,106,244,101,247,136"/>
 </map>

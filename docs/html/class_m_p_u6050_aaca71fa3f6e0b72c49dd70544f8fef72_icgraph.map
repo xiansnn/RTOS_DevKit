@@ -1,7 +1,10 @@
 <map id="MPU6050::read_registers_all_raw_data" name="MPU6050::read_registers_all_raw_data">
-<area shape="rect" id="Node000001" title="fill the internal data with raw values from sensors" alt="" coords="197,31,408,55"/>
-<area shape="rect" id="Node000002" href="$class_m_p_u6050.html#a35657154dd30e206e09ea6407ede106c" title="start the calibration of the MPU and compute gyro and accellero offset and conversion factor." alt="" coords="19,5,135,30"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,30,135,27,135,21,184,29"/>
-<area shape="rect" id="Node000003" href="$class_m_p_u6050.html#aa85e641ba4b5653ce5493a6cbd599e89" title="Get the raw data, fill the internal struct_RawData, converts raw data to real measures according to o..." alt="" coords="5,55,149,79"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="179,56,149,62,149,57,184,56"/>
+<area shape="rect" id="Node000001" title="fill the internal data with raw values from sensors" alt="" coords="458,31,669,55"/>
+<area shape="rect" id="Node000002" href="$class_m_p_u6050.html#aa85e641ba4b5653ce5493a6cbd599e89" title="Get the raw data, fill the internal struct_RawData, converts raw data to real measures according to o..." alt="" coords="255,5,398,30"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="440,30,399,28,399,23,445,30"/>
+<area shape="rect" id="Node000004" href="$class_m_p_u6050.html#acf6981eca592f2b3e3fa1608cc6451b9" title="start the calibration of the MPU and compute gyro and accellero offset and conversion factor." alt="" coords="244,55,410,79"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="445,55,411,61,410,56,440,55"/>
+<area shape="rect" id="Node000003" href="$class_m_p_u6050.html#a4844260635c8830ff034a9ce20462310" title="the task to process measures, should be called in a dedicated task to avoid blocking the data ready i..." alt="" coords="5,31,196,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="237,28,197,35,196,30,242,27"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="226,57,196,56,196,50,231,56"/>
 </map>

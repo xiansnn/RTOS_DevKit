@@ -41,7 +41,6 @@ var hierarchy =
         ] ]
       ] ]
     ] ],
-    [ "MPU6050", "class_m_p_u6050.html", null ],
     [ "MSGEQ7", "class_m_s_g_e_q7.html", null ],
     [ "Probe", "class_probe.html", null ],
     [ "PWM", "class_p_w_m.html", null ],
@@ -59,6 +58,7 @@ var hierarchy =
     [ "rtos_GraphicDisplayGateKeeper", "classrtos___graphic_display_gate_keeper.html", null ],
     [ "rtos_HCSR04", "classrtos___h_c_s_r04.html", null ],
     [ "rtos_Model", "classrtos___model.html", [
+      [ "MPU6050", "class_m_p_u6050.html", null ],
       [ "rtos_UIControlledModel", "classrtos___u_i_controlled_model.html", [
         [ "rtos_UIModelManager", "classrtos___u_i_model_manager.html", null ]
       ] ]

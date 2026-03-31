@@ -1,0 +1,5 @@
+<map id="MPU6050::process_calibration" name="MPU6050::process_calibration">
+<area shape="rect" id="Node000001" title="start the calibration of the MPU and compute gyro and accellero offset and conversion factor." alt="" coords="244,5,410,30"/>
+<area shape="rect" id="Node000002" href="$class_m_p_u6050.html#a4844260635c8830ff034a9ce20462310" title="the task to process measures, should be called in a dedicated task to avoid blocking the data ready i..." alt="" coords="5,5,196,30"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="226,18,196,20,196,15,231,18"/>
+</map>

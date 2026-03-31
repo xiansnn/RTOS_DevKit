@@ -1,5 +1,11 @@
 var NAVTREEINDEX3 =
 {
+"dir_0625d5ea7b07f97131d30c9d9efdee9e.html":[5,0,0,0,5],
+"dir_07af49d905f95dfbd54d2635bf076844.html":[5,0,0,0,2],
+"dir_14c55e0c8ed72074091b44a64439906f.html":[5,0,0,2],
+"dir_16dc92632bab467dc50b01bd02b3341a.html":[5,0,0,0],
+"dir_384e345ba276260039517aa2781936b6.html":[5,0,0,3],
+"dir_3e5cdb89cd7f298369e99b692be324ae.html":[5,0,0,3,2],
 "dir_455f8e952f944199957c190ce45be70f.html":[5,0,0,2,1],
 "dir_4b9e62015fffd096c55fea90cc911a11.html":[5,0,0,0,6],
 "dir_6675933cf5f96da6f04e950b0996b5ac.html":[5,0,0,4,0],
@@ -124,6 +130,10 @@ var NAVTREEINDEX3 =
 "index.html#autotoc_md1":[0,1],
 "index.html#autotoc_md2":[0,2],
 "mpu6050_8h.html":[5,0,0,0,2,1],
+"mpu6050_8h.html#a017357a926af1fb20f387893f2ebb801":[5,0,0,0,2,1,3],
+"mpu6050_8h.html#a017357a926af1fb20f387893f2ebb801a2ba22e58ca17bb728d522bba36cf8350":[5,0,0,0,2,1,3,2],
+"mpu6050_8h.html#a017357a926af1fb20f387893f2ebb801aca69f96c768067fbff6c911ca87bccc9":[5,0,0,0,2,1,3,1],
+"mpu6050_8h.html#a017357a926af1fb20f387893f2ebb801aebdf9721be38d1fc1cd6db8c737d1be0":[5,0,0,0,2,1,3,0],
 "mpu6050_8h_source.html":[5,0,0,0,2,1],
 "msgeq7_8h.html":[5,0,0,0,3,0],
 "msgeq7_8h_source.html":[5,0,0,0,3,0],
@@ -239,15 +249,5 @@ var NAVTREEINDEX3 =
 "structstruct___config_master_s_p_i.html#a706e797e658220957b084d0f3b7c4362":[4,0,52,4],
 "structstruct___config_master_s_p_i.html#a7d5244cc6e90ea4b569a58d18c41647e":[4,0,52,6],
 "structstruct___config_master_s_p_i.html#a9b3d2c2db463d797abda0ca9a951841d":[4,0,52,9],
-"structstruct___config_master_s_p_i.html#ab5cc6db8ddef42175018b2c1029cb458":[4,0,52,2],
-"structstruct___config_master_s_p_i.html#ab78aa3af4bfc10ba6abc9ee4c1055644":[4,0,52,0],
-"structstruct___config_master_s_p_i.html#ad1ecee733307c3b94312fe5abb8ac24d":[4,0,52,3],
-"structstruct___config_master_s_p_i.html#ad2e47bcc07fef5657635598cb6bcea43":[4,0,52,7],
-"structstruct___config_master_s_p_i.html#adc10e9c122ca390727e762b8ca4bfa3a":[4,0,52,1],
-"structstruct___config_s_g90.html":[4,0,56],
-"structstruct___config_s_g90.html#a1adfe8bff0e581ebf86b11dd97d7153c":[4,0,56,3],
-"structstruct___config_s_g90.html#a581a0a3f493cacd65f9399888cf55a7e":[4,0,56,0],
-"structstruct___config_s_g90.html#a9c349601a83bb7b1a0b42cf927ec4bf5":[4,0,56,1],
-"structstruct___config_s_g90.html#aec659f7a3f081dfbcf34000c9f68d556":[4,0,56,2],
-"structstruct___config_s_s_d1306.html":[4,0,58]
+"structstruct___config_master_s_p_i.html#ab5cc6db8ddef42175018b2c1029cb458":[4,0,52,2]
 };

@@ -74,9 +74,9 @@ Inheritance diagram for HW_I2C_Master:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_h_w___i2_c___master__inherit__graph.png" border="0" usemap="#a_h_w___i2_c___master_inherit__map" loading="lazy" alt="Inheritance graph"/></div>
 <map name="a_h_w___i2_c___master_inherit__map" id="a_h_w___i2_c___master_inherit__map">
-<area shape="rect" title="this is a C++ wrapper for the original pico SDK i2c master API" alt="" coords="32,5,546,271"/>
-<area shape="rect" href="classrtos___h_w___i2_c___master.html" title="This is a C++ wrapper for the original pico SDK i2c master API, adapted to FreeRTOS environment." alt="" coords="5,319,573,545"/>
-<area shape="poly" title=" " alt="" coords="291,283,292,320,287,318,288,288"/>
+<area shape="rect" title="this is a C++ wrapper for the original pico SDK i2c master API" alt="" coords="32,5,546,309"/>
+<area shape="rect" href="classrtos___h_w___i2_c___master.html" title="This is a C++ wrapper for the original pico SDK i2c master API, adapted to FreeRTOS environment." alt="" coords="5,357,573,584"/>
+<area shape="poly" title=" " alt="" coords="291,322,292,359,287,357,288,326"/>
 </map>
 </div>
 <div class="dynheader">
@@ -84,7 +84,7 @@ Collaboration diagram for HW_I2C_Master:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_h_w___i2_c___master__coll__graph.png" border="0" usemap="#a_h_w___i2_c___master_coll__map" loading="lazy" alt="Collaboration graph"/></div>
 <map name="a_h_w___i2_c___master_coll__map" id="a_h_w___i2_c___master_coll__map">
-<area shape="rect" title="this is a C++ wrapper for the original pico SDK i2c master API" alt="" coords="5,5,519,271"/>
+<area shape="rect" title="this is a C++ wrapper for the original pico SDK i2c master API" alt="" coords="5,5,519,309"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -104,12 +104,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a81b01ac8db26400774c892f76b1917de"><td class="mdescLeft">&#160;</td><td class="mdescRight">A utility that scan the I2C bus and return the set of answering devices.  <br /></td></tr>
 <tr class="memitem:ad767e0f547fe485ffdfe0b37678a64f9" id="r_ad767e0f547fe485ffdfe0b37678a64f9"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad767e0f547fe485ffdfe0b37678a64f9">device_is_connected</a> (uint8_t slave_address)</td></tr>
 <tr class="memdesc:ad767e0f547fe485ffdfe0b37678a64f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">utility to know if a device is connected  <br /></td></tr>
+<tr class="memitem:aadadd78bc8959ddabf57344d2d868d26" id="r_aadadd78bc8959ddabf57344d2d868d26"><td class="memItemLeft"><a id="aadadd78bc8959ddabf57344d2d868d26" name="aadadd78bc8959ddabf57344d2d868d26"></a>
+void&#160;</td><td class="memItemRight"><b>init_i2c_block_device</b> ()</td></tr>
+<tr class="memdesc:aadadd78bc8959ddabf57344d2d868d26"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the i2c hardware instance as a master block device, with the given configuration. This is useful for example to reset the i2c bus in case of error. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-attribs" class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:aab3a5b68364dad06462d8e26bfede7d6" id="r_aab3a5b68364dad06462d8e26bfede7d6"><td class="memItemLeft"><a id="aab3a5b68364dad06462d8e26bfede7d6" name="aab3a5b68364dad06462d8e26bfede7d6"></a>
 i2c_inst_t *&#160;</td><td class="memItemRight"><b>i2c</b></td></tr>
 <tr class="memdesc:aab3a5b68364dad06462d8e26bfede7d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">the i2c hardware instance of the Pico that handles the i2c master <br /></td></tr>
+<tr class="memitem:a6d5233240a532a13be3e7729fd0991b8" id="r_a6d5233240a532a13be3e7729fd0991b8"><td class="memItemLeft"><a id="a6d5233240a532a13be3e7729fd0991b8" name="a6d5233240a532a13be3e7729fd0991b8"></a>
+uint&#160;</td><td class="memItemRight"><b>baud_rate</b></td></tr>
+<tr class="memdesc:a6d5233240a532a13be3e7729fd0991b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">the I2C baudrate: <br /></td></tr>
 <tr class="memitem:a5712ef13f78dba483dfb7534681b4809" id="r_a5712ef13f78dba483dfb7534681b4809"><td class="memItemLeft"><a id="a5712ef13f78dba483dfb7534681b4809" name="a5712ef13f78dba483dfb7534681b4809"></a>
 irq_handler_t&#160;</td><td class="memItemRight"><b>i2c_master_exclusive_irq_handler</b> = NULL</td></tr>
 <tr class="memdesc:a5712ef13f78dba483dfb7534681b4809"><td class="mdescLeft">&#160;</td><td class="mdescRight">a function pointer to the IRQ i2c_master_exclusive_handler, to the program that manage the I2C IRQ when used with DMA <br /></td></tr>
@@ -148,6 +154,16 @@ uint&#160;</td><td class="memItemRight"><b>time_out_us_per_byte</b></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_h_w___i2_c___master_aec651bc1d3019c6a5d30bbda8bae5846_cgraph.png" border="0" usemap="#aclass_h_w___i2_c___master_aec651bc1d3019c6a5d30bbda8bae5846_cgraph" loading="lazy" alt=""/></div>
+<map name="aclass_h_w___i2_c___master_aec651bc1d3019c6a5d30bbda8bae5846_cgraph" id="aclass_h_w___i2_c___master_aec651bc1d3019c6a5d30bbda8bae5846_cgraph">
+<area shape="rect" title="Construct a new hw i2c master object." alt="" coords="5,5,191,30"/>
+<area shape="rect" href="class_h_w___i2_c___master.html#aadadd78bc8959ddabf57344d2d868d26" title="initialize the i2c hardware instance as a master block device, with the given configuration...." alt="" coords="239,5,445,30"/>
+<area shape="poly" title=" " alt="" coords="191,15,226,18,220,18,191,20"/>
+</map>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
