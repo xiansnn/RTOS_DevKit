@@ -7,8 +7,6 @@ extern rtos_SwitchButton central_switch;
 extern my_mpu_console_widget console_widget;
 extern my_mpu6050_controller mpu_controller;
 
-void test_rtos_mpu6050_shared_IRQ_callback(uint gpio, uint32_t events);
-
 void idle_task(void *probe)
 {
     while (true)
