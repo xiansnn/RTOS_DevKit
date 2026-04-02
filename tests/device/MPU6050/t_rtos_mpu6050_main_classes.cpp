@@ -7,7 +7,7 @@ extern rtos_SwitchButton central_switch;
 extern rtos_HW_I2C_Master i2c_mpu_master;
 
 //--------------- setup I2C Master connected to MPU---------------------
-void i2c_irq_handler()
+void i2c_mpu_irq_handler()
 {
     i2c_mpu_master.i2c_dma_isr();
 };
@@ -17,7 +17,7 @@ struct_ConfigMasterI2C cfg_mpu6050_i2c{
     .sda_pin = 2,
     .scl_pin = 3,
     .baud_rate = I2C_STANDARD_MODE,
-    .i2c_tx_master_handler = i2c_irq_handler};
+    .i2c_tx_master_handler = i2c_mpu_irq_handler};
 
 
     //--------------- setup MPU---------------------

@@ -1,11 +1,14 @@
 #include "t_rtos_mpu6050_main_tasks.h"
 #include "t_rtos_mpu6050_console_widget.h"
 #include "t_rtos_mpu6050_control.h"
+#include "t_rtos_mpu6050_main_widgets.h"
 
 extern MPU6050 mpu;
 extern rtos_SwitchButton central_switch;
 extern my_mpu_console_widget console_widget;
 extern my_mpu6050_controller mpu_controller;
+extern MonitoringWidgets my_monitoring_widget;
+extern rtos_GraphicDisplayGateKeeper I2C_display_gate_keeper;
 
 void idle_task(void *probe)
 {
@@ -53,5 +56,19 @@ void my_mpu_printing_task(void *probe)
         console_widget.draw();
         if (probe != NULL)
             ((Probe *)probe)->lo();
+    }
+}
+
+void my_mpu_monitoring_task(void *probe)
+{
+    while (true)
+    {
+        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+        if (probe != NULL)
+            ((Probe *)probe)->hi();
+        my_monitoring_widget.draw();
+        if (probe != NULL)
+            ((Probe *)probe)->lo();
+        I2C_display_gate_keeper.send_widget_data(&my_monitoring_widget);
     }
 }
