@@ -41,6 +41,7 @@
 class GraphicDrawer
 {
 protected:
+public:
     /// @brief As a widget can be surrounded by a border, the actual widget width is not the associated framebuffer width.
     size_t widget_width{128};
 
@@ -54,11 +55,10 @@ protected:
     /// @brief this is the actual vertical start of the widget drawing area, taken into account the presence of border.
     /// \note when the FramebufferFormat format is MONO_VLSB, works fine only if widget_start_y is a multiple of 8
     uint8_t widget_start_y;
-
-public:
+    
     /// @brief if true, the widget is surrounded by a one-pixel border
     bool widget_with_border{false};
-    
+
     /// @brief  Constructor of the GraphicDrawer class
     /// @param graph_cfg    the configuration data for the graphical frame
     /// @param canvas_format    the format of the associated canvas (see CanvasFormat)
