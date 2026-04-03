@@ -36,9 +36,7 @@ void test_rtos_mpu6050_shared_IRQ_callback(uint gpio, uint32_t event_mask)
     switch (gpio)
     {
     case GPIO_MPU_INT:
-        p1.hi();
         mpu.data_ready_isr();
-        p1.lo();
         break;
     case GPIO_MPU_RESET:
         gpio_set_irq_enabled(GPIO_MPU_RESET, GPIO_IRQ_EDGE_FALL | GPIO_IRQ_EDGE_RISE, false);

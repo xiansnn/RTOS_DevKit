@@ -13,13 +13,16 @@ extern Probe p5;
 extern Probe p6;
 extern Probe p7;
 
-#define ENABLE_PRINT_MEASURES
+// #define SHOW_PRINT_MEASURES
 #define SHOW_MONITORING_WIDGET
+// #define SHOW_ROTATION
+#define SHOW_SPIRIT_LEVEL_WIDGET
+
 
 //------------------MPU6050----------------------
 #define GPIO_MPU_INT 21 // gpio connnected to MPU INT pin
 #define GPIO_MPU_RESET 18 // gpio connnected to MPU reset switch
-#define MPU_SAMPLE_RATE_Hz 20
+#define MPU_SAMPLE_RATE_Hz 10
 
 //--------------display
 #define SSD1306_CANVAS_FORMAT CanvasFormat::MONO_VLSB

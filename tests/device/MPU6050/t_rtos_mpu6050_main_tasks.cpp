@@ -9,6 +9,8 @@ extern my_mpu_console_widget console_widget;
 extern my_mpu6050_controller mpu_controller;
 extern MonitoringWidgets my_monitoring_widget;
 extern rtos_GraphicDisplayGateKeeper I2C_display_gate_keeper;
+extern SpiritLevelWidget my_spirit_level_widget;
+extern rtos_GraphicDisplayGateKeeper SPI_display_gate_keeper;
 
 void idle_task(void *probe)
 {
@@ -70,5 +72,20 @@ void my_mpu_monitoring_task(void *probe)
         if (probe != NULL)
             ((Probe *)probe)->lo();
         I2C_display_gate_keeper.send_widget_data(&my_monitoring_widget);
+    }
+}
+
+void my_mpu_spirit_level_task(void *probe)
+{
+    my_spirit_level_widget.display_device->clear_device_screen_buffer();
+    while (true)
+    {
+        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+        if (probe != NULL)
+            ((Probe *)probe)->hi();
+        my_spirit_level_widget.draw();
+        if (probe != NULL)
+            ((Probe *)probe)->lo();
+        SPI_display_gate_keeper.send_widget_data(&my_spirit_level_widget);
     }
 }

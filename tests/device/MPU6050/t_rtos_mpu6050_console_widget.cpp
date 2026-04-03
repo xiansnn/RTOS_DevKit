@@ -20,9 +20,9 @@ void my_mpu_console_widget::draw()
     MPU6050 *mpu = (MPU6050 *)this->actual_rtos_displayed_model;
     struct_MPUData data = mpu->data;
 
-    printf("Temp = %+.2f\t AccX = %+.2f\tY = %+.2f\tZ = %+.2f",data.temp_out, data.g_x, data.g_y, data.g_z);
-    printf("\tvecteur G: %+.2f", sqrt(pow(data.g_x, 2) + pow(data.g_y, 2) + pow(data.g_z, 2)));
-    printf("\tGyroX = %+.2f\tY = %+.2f\tZ = %+.2f", data.gyro_x, data.gyro_y, data.gyro_z);
+    printf("Temp= %+3.1f\t Ax= %+3.2f\tAy= %+3.2f\tAz= %+3.2f",data.temp_out, data.g_x, data.g_y, data.g_z);
+    printf("\tG-> %+3.2f", sqrt(pow(data.g_x, 2) + pow(data.g_y, 2) + pow(data.g_z, 2)));
+    printf("\tGx= %+4.2f\tGy= %+4.2f\tGz= %+4.2f", data.gyro_x, data.gyro_y, data.gyro_z);
     printf("\n\n");
 
     /*
