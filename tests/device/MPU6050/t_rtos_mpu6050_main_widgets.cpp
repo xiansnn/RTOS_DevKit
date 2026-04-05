@@ -33,7 +33,7 @@ void MonitoringWidgets::get_value_of_interest()
 
 void MonitoringWidgets::draw()
 {
-    p5.hi();
+    p4.hi();
     this->writer->clear_text_buffer();
     this->get_value_of_interest();
 
@@ -51,7 +51,7 @@ void MonitoringWidgets::draw()
 #endif
     this->writer->write();
     this->writer->draw_border();
-    p5.lo();
+    p4.lo();
 }
 
 SpiritLevelWidget::SpiritLevelWidget(rtos_Model *actual_displayed_model, struct_ConfigGraphicWidget graph_cfg, CanvasFormat canvas_format, rtos_DisplayDevice *display_device)
@@ -74,11 +74,13 @@ void SpiritLevelWidget::draw()
     this->get_value_of_interest();
     // draw
 
-    this->drawer->rect(0, 0, this->drawer->canvas->canvas_width_pixel, this->drawer->canvas->canvas_height_pixel, true, ColorIndex::ORANGE);
+    this->drawer->rect(0, 0, this->drawer->canvas->canvas_width_pixel, this->drawer->canvas->canvas_height_pixel, true, ColorIndex::PHOSPHOR);
     // draw bubble
-    // this->drawer->circle(20,64,64,false,this->drawer->canvas->fg_color);
-    //draw ref cercle
-    this->drawer->circle(20,64,64,false,this->drawer->canvas->fg_color);
+    int bubble_center_x = 64 * (1 + measures.g_y);
+    int bubble_center_y = 64 * (1 + measures.g_x);
+    this->drawer->circle(19, bubble_center_x, bubble_center_y, true, ColorIndex::BLACK);
+    // draw ref cercle
+    this->drawer->circle(20, 64, 64, false, ColorIndex::RED);
 
     this->drawer->draw_border(this->drawer->canvas->fg_color);
 }
