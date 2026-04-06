@@ -10,10 +10,10 @@ struct_ConfigTextWidget cfg_monitoring_text{
     .font = font_12x16};
 
 struct_ConfigGraphicWidget cfg_spirit_level{
-    .canvas_width_pixel = 128,
-    .canvas_height_pixel = 128,
-    .canvas_foreground_color = ColorIndex::RED,
-    .canvas_background_color = ColorIndex::ORANGE,
+    .canvas_width_pixel = SPIRIT_LEVEL_WIDGET_SIZE,
+    .canvas_height_pixel = SPIRIT_LEVEL_WIDGET_SIZE,
+    .canvas_foreground_color = SPIRIT_LEVEL_REF_CIRCLE_COLOR,
+    .canvas_background_color = SPIRIT_LEVEL_BACKGROUND_COLOR,
     .widget_anchor_x = 0,
     .widget_anchor_y = 0,
     .widget_with_border = true};
@@ -74,13 +74,15 @@ void SpiritLevelWidget::draw()
     this->get_value_of_interest();
     // draw
 
-    this->drawer->rect(0, 0, this->drawer->canvas->canvas_width_pixel, this->drawer->canvas->canvas_height_pixel, true, ColorIndex::PHOSPHOR);
+    this->drawer->rect(0, 0, this->drawer->canvas->canvas_width_pixel, this->drawer->canvas->canvas_height_pixel, true, SPIRIT_LEVEL_BACKGROUND_COLOR);
     // draw bubble
-    int bubble_center_x = 64 * (1 + measures.g_y);
-    int bubble_center_y = 64 * (1 + measures.g_x);
-    this->drawer->circle(19, bubble_center_x, bubble_center_y, true, ColorIndex::BLACK);
+    int spirit_level_center_x = SPIRIT_LEVEL_WIDGET_SIZE/2;
+    int spirit_level_center_y = SPIRIT_LEVEL_WIDGET_SIZE/2;
+    int bubble_center_x = spirit_level_center_x * (1 + measures.g_y);
+    int bubble_center_y = spirit_level_center_y * (1 + measures.g_x);
+    this->drawer->circle(SPIRIT_LEVEL_RADIUS-1, bubble_center_x, bubble_center_y, true, SPIRIT_LEVEL_BUBBLE_COLOR);
     // draw ref cercle
-    this->drawer->circle(20, 64, 64, false, ColorIndex::RED);
+    this->drawer->circle(SPIRIT_LEVEL_RADIUS, spirit_level_center_x, spirit_level_center_y, false, SPIRIT_LEVEL_REF_CIRCLE_COLOR);
 
     this->drawer->draw_border(this->drawer->canvas->fg_color);
 }
