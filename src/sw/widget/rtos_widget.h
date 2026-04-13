@@ -127,8 +127,8 @@ class rtos_Model;
 class rtos_Widget
 {
 protected:
-    /// @brief A rtos_widget can be composed by several rtos_widgets.
-    std::vector<rtos_Widget *> rtos_widgets;
+    // /// @brief A rtos_widget can be composed by several rtos_widgets.
+    // std::vector<rtos_Widget *> rtos_widgets;
 
 public:
     /// @brief a pointer to the Model actually displayed by the widget
