@@ -1,4 +1,5 @@
 #include "rtos_ui_core.h"
+#include "sw/widget/rtos_widget.h"
 
 void rtos_Model::update_attached_rtos_widget(rtos_Widget *linked_widget)
 {

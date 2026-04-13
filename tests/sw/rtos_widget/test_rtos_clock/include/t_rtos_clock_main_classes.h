@@ -1,5 +1,6 @@
 #pragma once
 #include "sw/ui_core/rtos_ui_core.h"
+#include "sw/widget/rtos_widget.h"
 
 enum class ClockElementType
 {

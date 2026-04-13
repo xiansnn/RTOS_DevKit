@@ -18,6 +18,7 @@
 #include "sw/widget/canvas.h"
 #include "sw/ui_core/ui_control_event.h"
 #include "sw/widget/widget_primitives.h"
+#include "sw/ui_core/rtos_ui_core.h"
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -120,7 +121,7 @@ public:
     virtual void set_focus_color() = 0;
 };
 
-class rtos_Model;
+// class rtos_Model;
 
 /// @brief RTOS wrapper for Widget class
 /// \ingroup view
