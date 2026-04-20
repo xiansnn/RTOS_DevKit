@@ -34,6 +34,14 @@ extern Probe p7;
 #define GPIO_MPU_RESET 18 // gpio connnected to MPU reset switch
 #define MPU_SAMPLE_RATE_Hz 10
 
+//------------------encoder button configuration------------
+#define GPIO_SCREEN_ENCODER_CLK 19
+#define GPIO_SCREEN_ENCODER_DT 20
+#define TIMEOUT_GLOBAL_DELAY_ms 5000
+#define TIMEOUT_SWITCH_DELAY_ms 1000
+#define TIMEOUT_UI_MANAGER_DELAY_ms TIMEOUT_GLOBAL_DELAY_ms - TIMEOUT_SWITCH_DELAY_ms
+
+
 //-------------- SSD1306 display configuration------------
 #define SSD1306_CANVAS_FORMAT CanvasFormat::MONO_VLSB
 

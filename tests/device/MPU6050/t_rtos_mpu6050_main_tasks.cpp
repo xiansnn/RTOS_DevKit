@@ -5,13 +5,14 @@
 
 extern MPU6050 mpu;
 extern rtos_SwitchButton central_switch;
+extern rtos_RotaryEncoder encoder;
 extern my_mpu_console_widget console_widget;
 extern my_mpu6050_controller mpu_controller;
+extern my_mpu6050_screen_controller screen_controller;
 extern MonitoringWidgets my_monitoring_widget;
 extern rtos_GraphicDisplayGateKeeper I2C_display_gate_keeper;
 extern SpiritLevelWidget my_spirit_level_widget;
 extern rtos_GraphicDisplayGateKeeper SPI_display_gate_keeper;
-
 void idle_task(void *probe)
 {
     while (true)
@@ -34,6 +35,11 @@ void mpu_process_measures_task(void *probe)
     mpu.process_measures_task(probe);
 }
 
+void screen_encoder_process_irq_event_task(void *)
+{
+    encoder.rtos_process_IRQ_event();
+}
+
 void mpu_controller_task(void *probe)
 {
     struct_ControlEventData data;
@@ -43,6 +49,20 @@ void mpu_controller_task(void *probe)
         if (probe != NULL)
             ((Probe *)probe)->hi();
         mpu_controller.process_control_event(data);
+        if (probe != NULL)
+            ((Probe *)probe)->lo();
+    }
+}
+
+void monitoring_screen_controller_task(void *probe)
+{
+    struct_ControlEventData data;
+    while (true)
+    {
+        xQueueReceive(screen_controller.control_event_input_queue, &data, portMAX_DELAY);
+        if (probe != NULL)
+            ((Probe *)probe)->hi();
+        screen_controller.process_control_event(data);
         if (probe != NULL)
             ((Probe *)probe)->lo();
     }

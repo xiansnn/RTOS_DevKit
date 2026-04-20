@@ -16,6 +16,7 @@ target_link_libraries(test_rtos_mpu6050_irq
             device_ssd1306
             device_st7735 
             device_rtos_switch_button
+            dev_rtos_rotary_encoder
             FreeRTOS-Kernel-Heap4 
             utilities_probe
             )
