@@ -83,6 +83,7 @@ void my_mpu_printing_task(void *probe)
 
 void my_mpu_monitoring_task(void *probe)
 {
+    my_monitoring_widget.display_device->clear_device_screen_buffer();
     while (true)
     {
         ulTaskNotifyTake(pdTRUE, portMAX_DELAY);

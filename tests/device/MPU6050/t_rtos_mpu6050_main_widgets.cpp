@@ -37,18 +37,33 @@ void MonitoringWidgets::draw()
     this->writer->clear_text_buffer();
     this->get_value_of_interest();
 
-#if defined(SHOW_ROTATION)
-    sprintf(this->writer->text_buffer,
-            "Gx= %+5.3f\nGy= %+5.3f\nGz= % +5.3f\nG-> %+4.3f",
-            measures.gyro_x, measures.gyro_y, measures.gyro_z,
-            sqrt(pow(measures.g_x, 2) + pow(measures.g_y, 2) + pow(measures.g_z, 2)));
-#endif // SHOW_ROTATION
-#if not defined(SHOW_ROTATION)
-    sprintf(this->writer->text_buffer,
-            "Ax= %+4.2f\nAy= %+4.2f\nAz= %+4.2f\nT= %+3.1f\xF8\x43",
-            measures.g_x, measures.g_y, measures.g_z,
-            measures.temp_out);
-#endif
+    switch (widget_id)
+    {
+    case 0:
+        sprintf(this->writer->text_buffer,
+                "Ax= %+4.2f\nAy= %+4.2f\nAz= %+4.2f",
+                measures.g_x, measures.g_y, measures.g_z);
+        break;
+    case 1:
+        sprintf(this->writer->text_buffer,
+                "Gx=%+5.2f\nGy=%+5.2f\nGz=%+5.2f",
+                measures.gyro_x, measures.gyro_y, measures.gyro_z);
+        break;
+    case 2:
+        sprintf(this->writer->text_buffer,
+                "G-> %+4.2f",
+                sqrt(pow(measures.g_x, 2) + pow(measures.g_y, 2) + pow(measures.g_z, 2)));
+
+        break;
+    case 3:
+        sprintf(this->writer->text_buffer,
+                "T= %+3.1f\xF8\x43",
+                measures.temp_out);
+        break;
+
+    default:
+        break;
+    }
     this->writer->write();
     this->writer->draw_border();
     p4.lo();
@@ -76,11 +91,11 @@ void SpiritLevelWidget::draw()
 
     this->drawer->rect(0, 0, this->drawer->canvas->canvas_width_pixel, this->drawer->canvas->canvas_height_pixel, true, SPIRIT_LEVEL_BACKGROUND_COLOR);
     // draw bubble
-    int spirit_level_center_x = SPIRIT_LEVEL_WIDGET_SIZE/2;
-    int spirit_level_center_y = SPIRIT_LEVEL_WIDGET_SIZE/2;
+    int spirit_level_center_x = SPIRIT_LEVEL_WIDGET_SIZE / 2;
+    int spirit_level_center_y = SPIRIT_LEVEL_WIDGET_SIZE / 2;
     int bubble_center_x = spirit_level_center_x * (1 + measures.g_y);
     int bubble_center_y = spirit_level_center_y * (1 + measures.g_x);
-    this->drawer->circle(SPIRIT_LEVEL_RADIUS-1, bubble_center_x, bubble_center_y, true, SPIRIT_LEVEL_BUBBLE_COLOR);
+    this->drawer->circle(SPIRIT_LEVEL_RADIUS - 1, bubble_center_x, bubble_center_y, true, SPIRIT_LEVEL_BUBBLE_COLOR);
     // draw ref cercle
     this->drawer->circle(SPIRIT_LEVEL_RADIUS, spirit_level_center_x, spirit_level_center_y, false, SPIRIT_LEVEL_REF_CIRCLE_COLOR);
 
