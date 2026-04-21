@@ -36,10 +36,10 @@ void rtos_Widget::update_widget_anchor(uint8_t x, uint8_t y)
     this->widget_anchor_y = y;
 }
 
-void rtos_Widget::add_widget(rtos_Widget *_sub_widget)
-{
-    this->rtos_widgets.push_back(_sub_widget);
-}
+// void rtos_Widget::add_widget(rtos_Widget *_sub_widget)
+// {
+//     this->rtos_widgets.push_back(_sub_widget);
+// }
 
 rtos_GraphicWidget::rtos_GraphicWidget(rtos_Model *actual_displayed_model,
                                        struct_ConfigGraphicWidget graph_cfg, CanvasFormat canvas_format,

@@ -13,7 +13,6 @@
 #include "sw/ui_core/ui_control_event.h"
 #include "sw/ui_core/ui_core.h"
 #include "utilities/probe/probe.h"
-#include "sw/widget/rtos_widget.h"
 
 #include "FreeRTOS.h"
 #include "task.h"

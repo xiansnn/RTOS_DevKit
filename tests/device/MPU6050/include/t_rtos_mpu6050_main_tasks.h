@@ -7,8 +7,11 @@ void idle_task(void *robe);
 void mpu_process_measures_task(void *probe);
 
 void central_switch_process_irq_event_task(void *);
+void screen_encoder_process_irq_event_task(void *);
 
 void mpu_controller_task(void *probe);
+
+void monitoring_screen_controller_task(void *probe);
 
 void my_mpu_printing_task(void *probe);
 

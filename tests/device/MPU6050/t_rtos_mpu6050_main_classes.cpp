@@ -5,6 +5,7 @@
 extern MPU6050 mpu;
 extern rtos_SwitchButton central_switch;
 extern rtos_HW_I2C_Master i2c_mpu_master;
+extern rtos_RotaryEncoder encoder;
 
 //--------------- setup I2C Master connected to MPU---------------------
 void i2c_mpu_irq_handler()
@@ -19,12 +20,10 @@ struct_ConfigMasterI2C cfg_mpu6050_i2c{
     .baud_rate = I2C_STANDARD_MODE,
     .i2c_tx_master_handler = i2c_mpu_irq_handler};
 
-
-    //--------------- setup MPU---------------------
+//--------------- setup MPU---------------------
 struct_ConfigMPU6050 cfg_mpu_device{
     .SAMPLE_RATE_Hz = MPU_SAMPLE_RATE_Hz,
     .DLPF_BW = 5};
-
 
 //-------------------- IRQ callback--------------------
 void test_rtos_mpu6050_shared_IRQ_callback(uint gpio, uint32_t event_mask)
@@ -43,6 +42,9 @@ void test_rtos_mpu6050_shared_IRQ_callback(uint gpio, uint32_t event_mask)
         xQueueSendFromISR(central_switch.IRQdata_input_queue, &data, &pxHigherPriorityTaskWoken);
         portYIELD_FROM_ISR(&pxHigherPriorityTaskWoken);
         gpio_set_irq_enabled(GPIO_MPU_RESET, GPIO_IRQ_EDGE_FALL | GPIO_IRQ_EDGE_RISE, true);
+        break;
+    case GPIO_SCREEN_ENCODER_CLK:
+        xQueueSendFromISR(encoder.IRQdata_input_queue, &data, &pxHigherPriorityTaskWoken);
         break;
     default:
         break;

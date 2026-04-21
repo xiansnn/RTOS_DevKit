@@ -32,6 +32,7 @@ extern struct_ConfigSSD1306 cfg_right_screen;
 
 extern struct_ConfigTextWidget cfg_monitoring_text;
 extern struct_ConfigGraphicWidget cfg_spirit_level;
+extern struct_rtosConfigSwitchButton cfg_encoder_clk;
 
 rtos_HW_I2C_Master i2c_mpu_master = rtos_HW_I2C_Master(cfg_mpu6050_i2c);
 MPU6050 mpu = MPU6050(&i2c_mpu_master, cfg_mpu_device, GPIO_MPU_INT, test_rtos_mpu6050_shared_IRQ_callback);
@@ -71,11 +72,16 @@ MonitoringWidgets my_monitoring_widget = MonitoringWidgets(&mpu, cfg_monitoring_
 SpiritLevelWidget my_spirit_level_widget = SpiritLevelWidget(&mpu, cfg_spirit_level, ST7735_GRAPHICS_CANVAS_FORMAT, &color_display);
 #endif // SHOW_SPIRIT_LEVEL_WIDGET
 
+//-------------------- setup screen controller--------------------
+my_mpu6050_screen_controller screen_controller = my_mpu6050_screen_controller(&my_monitoring_widget, 0, 3, true);
+rtos_RotaryEncoder encoder = rtos_RotaryEncoder(GPIO_SCREEN_ENCODER_CLK, GPIO_SCREEN_ENCODER_DT,
+                                                &test_rtos_mpu6050_shared_IRQ_callback, screen_controller.control_event_input_queue,
+                                                cfg_encoder_clk);
 //-----------------------------main--------------------------
 int main()
 {
-#if defined(SHOW_PRINT_MEASURES)
     stdio_init_all();
+#if defined(SHOW_PRINT_MEASURES)
     xTaskCreate(my_mpu_printing_task, "mpu_printing", 256, &p4, 5, &console_widget.task_handle);
 #endif // SHOW_PRINT_MEASURES
 
@@ -91,9 +97,11 @@ int main()
 
     xTaskCreate(mpu_process_measures_task, "mpu_process_measures", 256, &p7, 15, NULL);
     xTaskCreate(central_switch_process_irq_event_task, "mpu_reset", 256, NULL, 14, NULL);
+    xTaskCreate(screen_encoder_process_irq_event_task, "screen_encoder", 256, NULL, 14, NULL);
     xTaskCreate(mpu_controller_task, "mpu_cntrl", 256, NULL, 16, NULL);
+    xTaskCreate(monitoring_screen_controller_task, "screen_cntrl", 256, &p0, 13, &screen_controller.task_handle);
 
-    xTaskCreate(idle_task, "idle_task", 256, &p0, 0, NULL);
+    xTaskCreate(idle_task, "idle_task", 256, NULL, 0, NULL);
     vTaskStartScheduler();
 
     while (true)
