@@ -58,11 +58,6 @@ rtos_GraphicDisplayGateKeeper I2C_display_gate_keeper = rtos_GraphicDisplayGateK
 rtos_SwitchButton central_switch = rtos_SwitchButton(GPIO_MPU_RESET, &test_rtos_mpu6050_shared_IRQ_callback,
                                                      mpu_controller.control_event_input_queue,
                                                      cfg_central_switch);
-//-------------------- setup screen controller--------------------
-my_mpu6050_screen_controller screen_controller = my_mpu6050_screen_controller();
-rtos_RotaryEncoder encoder = rtos_RotaryEncoder(GPIO_SCREEN_ENCODER_CLK, GPIO_SCREEN_ENCODER_DT,
-                                                &test_rtos_mpu6050_shared_IRQ_callback, screen_controller.control_event_input_queue,
-                                                cfg_encoder_clk);
 
 //--------------- setup widgets---------------------
 #if defined(SHOW_PRINT_MEASURES)
@@ -77,6 +72,11 @@ MonitoringWidgets my_monitoring_widget = MonitoringWidgets(&mpu, cfg_monitoring_
 SpiritLevelWidget my_spirit_level_widget = SpiritLevelWidget(&mpu, cfg_spirit_level, ST7735_GRAPHICS_CANVAS_FORMAT, &color_display);
 #endif // SHOW_SPIRIT_LEVEL_WIDGET
 
+//-------------------- setup screen controller--------------------
+my_mpu6050_screen_controller screen_controller = my_mpu6050_screen_controller(&my_monitoring_widget, 0, 3, true);
+rtos_RotaryEncoder encoder = rtos_RotaryEncoder(GPIO_SCREEN_ENCODER_CLK, GPIO_SCREEN_ENCODER_DT,
+                                                &test_rtos_mpu6050_shared_IRQ_callback, screen_controller.control_event_input_queue,
+                                                cfg_encoder_clk);
 //-----------------------------main--------------------------
 int main()
 {

@@ -38,9 +38,12 @@ void my_mpu6050_controller::process_control_event(struct_ControlEventData contro
     }
 }
 
-my_mpu6050_screen_controller::my_mpu6050_screen_controller()
-: rtos_UIModelManager()
+
+
+my_mpu6050_screen_controller::my_mpu6050_screen_controller(MonitoringWidgets *controlled_widget, int min_value, int max_value, bool is_wrappable)
+    :rtos_UIControlledModel(), core_IncrementControlledModel(min_value, max_value, is_wrappable)
 {
+    this->controlled_widget = controlled_widget;
 }
 
 my_mpu6050_screen_controller::~my_mpu6050_screen_controller()
@@ -52,15 +55,16 @@ void my_mpu6050_screen_controller::process_control_event(struct_ControlEventData
     switch (control_event.event)
     {
         case UIControlEvent::INCREMENT:
-            increment_focus();
-            printf("increment focus index, current focus index is %d\n", this->get_current_focus_index());
+            increment_value();
+            // printf("increment widget index, current widget index is %d\n", this->get_value());
             break;
         case UIControlEvent::DECREMENT:
-            decrement_focus();
-            printf("decrement focus index, current focus index is %d\n", this->get_current_focus_index());
+            decrement_value();
+            // printf("decrement widget index, current widget index is %d\n", this->get_value());
             break;
     default:
         break;
     }
+    this->controlled_widget->widget_id = this->get_value();
 
 }

@@ -11,9 +11,9 @@ class MonitoringWidgets : public rtos_TextWidget
 {
 private:
     struct_MPUData measures;
-    int widget_id = 1; // 0 for accell, 1 for gyro, 2 for G vector, 3 for temp
-
-public:
+    
+    public:
+    int widget_id ; // 0 for accell, 1 for gyro, 2 for G vector, 3 for temp
     MonitoringWidgets(rtos_Model *actual_displayed_model,
                       struct_ConfigTextWidget text_cfg,
                       CanvasFormat canvas_format,
